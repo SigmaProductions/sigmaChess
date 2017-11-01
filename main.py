@@ -1,3 +1,4 @@
+from pieces import *
 
 class chessBoard:
     boardArray = [[]]
