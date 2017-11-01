@@ -27,13 +27,19 @@ class piecePawn(chessPiece):
             return False;
 
     def checkMove(self, boardArray, coordHorizontal, coordVert):
-        square = boardArray[attackX, attackY];
+        square = boardArray[coordHorizontal, coordVert];
         if self.faction == factionColor.FACTION_WHITE:
-            if coordHorizontal == self.x and coordVert == self.y + 1:
+            if coordHorizontal == self.x and self.y == 2 and coordVert == self.y + 2:
+                if square == None:
+                    return True;
+            elif coordHorizontal == self.x and coordVert == self.y + 1:
                 if square == None:
                     return True;
             return False;
         else:
+            if coordHorizontal == self.x and self.y == 6 and coordVert == self.y - 2:
+                if square == None:
+                    return True;
             if coordHorizontal == self.x and coordVert == self.y - 1:
                 if square == None:
                     return True;
