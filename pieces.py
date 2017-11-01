@@ -1,8 +1,10 @@
 class chessPiece:
 
-    def __init__(self, hX, hY):
+    def __init__(self, hX, hY, faction):
         self.x = hX;
         self.y = hY;
+        self.faction=faction;
+
 
 
 
