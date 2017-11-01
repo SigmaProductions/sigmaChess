@@ -74,15 +74,15 @@ class chessBoard:
                     print("-", end="")
 
     def isVictory(self):
-        whiteExist = 0
-        blackExist = 0
+        whiteExist = False
+        blackExist = False
         for i in range(8):
             for j in range(8):
-                if self.boardArray[j][i] == factionColor.FACTION_WHITE:
-                    whiteExist = 1
-                if self.boardArray[j][i] == factionColor.FACTION_BLACK:
-                    blackExist = 1
-        if blackExist != 1:
+                if self.boardArray[j][i].factionColor == factionColor.FACTION_WHITE:
+                    whiteExist = True
+                if self.boardArray[j][i].factionColor == factionColor.FACTION_BLACK:
+                    blackExist = True
+        if blackExist != True:
             print("White victory!")
-        if whiteExist != 1:
+        if whiteExist != True:
             print("Black victory!")
