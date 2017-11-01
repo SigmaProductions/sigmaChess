@@ -19,4 +19,9 @@ class piecePawn(chessPiece):
                 return True
         return False
 
+from enum import Enum
+
+class factionColor (Enum):
+    FACTION_WHITE = 1;
+    FACTION_BLACK = 2;
 
