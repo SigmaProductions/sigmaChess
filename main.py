@@ -72,3 +72,17 @@ class chessBoard:
                     print("P", end="")
                 else:
                     print("-", end="")
+
+    def isVictory(self):
+        whiteExist = 0
+        blackExist = 0
+        for i in range(8):
+            for j in range(8):
+                if self.boardArray[j][i] == factionColor.FACTION_WHITE:
+                    whiteExist = 1
+                if self.boardArray[j][i] == factionColor.FACTION_BLACK:
+                    blackExist = 1
+        if blackExist != 1:
+            print("White victory!")
+        if whiteExist != 1:
+            print("Black victory!")
