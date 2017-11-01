@@ -37,14 +37,18 @@ class chessBoard:
                 boardArray[k][i] = piecePawn(k, i)
         return boardArray
 
-    def __move(self, pieceToMove, xNew, yNew):
+    def movePiece(self, pieceToMove, xNew, yNew):
+        isAttack = pieceToMove.checkAttack(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
+        if isAttack == True:
+            self.__move(pieceToMove, xNew, yNew)
+            return True
         isLegal = pieceToMove.checkMove(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isLegal == False:
-            return False
-        self.movePiece(pieceToMove,xNew, yNew)
+        if isLegal == True:
+            self.__move(pieceToMove, xNew, yNew)
+            return True
 
 
-    def movePiece(self,pieceToMove, xNew, yNew):
+    def __move(self,pieceToMove, xNew, yNew):
         xCurrent = pieceToMove.x
         yCurrent = pieceToMove.y
         self.boardArray[xNew][yNew] = pieceToMove
