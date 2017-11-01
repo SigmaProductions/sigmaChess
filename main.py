@@ -10,17 +10,28 @@ class piecePawn:
         self.y = hY;
 
     def checkAttack(self, boardArray, attackX, attackY):
-        if attackY == self.y + 1 and (abs(attackX - self.x == 1)):
-            if boardArray[attackX][attackY] is not None:
-                return True;
-        return False;
+        if self.faction == FACTION_WHITE:
+            if attackY == self.y + 1 and (abs(attackX - self.x == 1)):
+                if boardArray[attackX][attackY] is not None:
+                    return True;
+            return False;
+        else:
+            if attackY == self.y - 1 and (abs(attackX - self.x == 1)):
+                if boardArray[attackX][attackY] is not None:
+                    return True;
+            return False;
 
     def checkMove(self, boardArray, coordHorizontal, coordVert):
-        if coordHorizontal == self.x and coordVert == self.y + 1:
-            if boardArray[coordHorizontal][coordVert + 1] == None:
-                return True
-        return False
-
+        if self.faction == FACTION_WHITE:
+            if coordHorizontal == self.x and coordVert == self.y + 1:
+                if boardArray[coordHorizontal][coordVert + 1] == None:
+                    return True;
+            return False;
+        else:
+            if coordHorizontal == self.x and coordVert == self.y - 1:
+                if boardArray[coordHorizontal][coordVert - 1] == None:
+                    return True;
+            return False;
 
 class chessBoard:
     boardArray = [[]]
