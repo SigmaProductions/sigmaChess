@@ -1,26 +1,4 @@
-from enum import Enum
-
-class factionColor (Enum):
-    FACTION_WHITE = 1;
-    FACTION_BLACK = 2;
-
-class piecePawn:
-    def __init__(self, hX, hY):
-        self.x = hX;
-        self.y = hY;
-
-    def checkAttack(self, boardArray, attackX, attackY):
-        if attackY == self.y + 1 and (abs(attackX - self.x == 1)):
-            if boardArray[attackX][attackY] is not None:
-                return True;
-        return False;
-
-    def checkMove(self, boardArray, coordHorizontal, coordVert):
-        if coordHorizontal == self.x and coordVert == self.y + 1:
-            if boardArray[coordHorizontal][coordVert + 1] == None:
-                return True
-        return False
-
+from pieces import *
 
 class chessBoard:
     boardArray = [[]]
@@ -40,7 +18,10 @@ class chessBoard:
         boardArray = self.__createEmptyArray()
         for i in range(2):
             for k in range(8):
-                boardArray[k][i] = piecePawn(k, i)
+                boardArray[k][i] = piecePawn(k, i, factionColor.FACTION_WHITE)
+        for i in range(8, 6):
+            for k in range(8):
+                boardArray[k][i] = piecePawn(k, i, factionColor.FACTION_BLACK)
         return boardArray
 
     def movePiece(self, pieceToMove, xNew, yNew):
