@@ -14,7 +14,7 @@ class chessPiece:
 class piecePawn(chessPiece):
 
     def checkAttack(self, boardArray, attackX, attackY):
-        if self.faction == FACTION_WHITE:
+        if self.faction == factionColor.FACTION_WHITE:
             if attackY == self.y + 1 and (abs(attackX - self.x == 1)):
                 if boardArray[attackX][attackY] is not None:
                     return True;
