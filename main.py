@@ -34,7 +34,10 @@ class chessBoard:
         boardArray = self.__createEmptyArray()
         for i in range(2):
             for k in range(8):
-                boardArray[k][i] = piecePawn(k, i)
+                boardArray[k][i] = piecePawn(k, i, factionColor.FACTION_WHITE)
+        for i in range(8, 6):
+            for k in range(8):
+                boardArray[k][i] = piecePawn(k, i, factionColor.FACTION_BLACK)
         return boardArray
 
     def movePiece(self, pieceToMove, xNew, yNew):
