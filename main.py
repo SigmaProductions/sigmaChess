@@ -54,7 +54,7 @@ class chessBoard:
 
     def PRINTBOARD(self):
         for i in range(8):
-            print("\n")
+            print("")
             for j in range(8):
                 if type(self.boardArray[j][7 - i]) is piecePawn:
                     print("P", end="")
