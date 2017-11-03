@@ -32,7 +32,7 @@ class piecePawn(chessPiece):
             if coordHorizontal == self.x and self.y == 2 and coordVert == self.y + 2:
                 if square == None:
                     return True;
-            elif coordHorizontal == self.x and coordVert == self.y + 1:
+            if coordHorizontal == self.x and coordVert == self.y + 1:
                 if square == None:
                     return True;
             return False;
@@ -60,7 +60,6 @@ class pieceKing(chessPiece):
             if square == None:
                 return True;
         return False;
-
 
 
 
