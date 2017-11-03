@@ -13,21 +13,21 @@ class chessPiece:
 
 class piecePawn(chessPiece):
 
-    def checkAttack(self, boardArray, attackX, attackY):
-        square = boardArray[attackX,attackY];
+    def checkAttack(self, boardArray, coordHorizontal, coordVert):
+        square = boardArray[coordHorizontal][coordVert];
         if self.faction == factionColor.FACTION_WHITE:
-            if attackY == self.y + 1 and (abs(attackX - self.x == 1)):
+            if coordVert == self.y + 1 and (abs(coordHorizontal - self.x == 1)):
                 if square is not None and square.faction is not self.faction:
                     return True;
             return False;
         else:
-            if attackY == self.y - 1 and (abs(attackX - self.x == 1)):
+            if coordVert == self.y - 1 and (abs(coordHorizontal - self.x == 1)):
                 if square is not None and square.faction is not self.faction:
                     return True;
             return False;
 
     def checkMove(self, boardArray, coordHorizontal, coordVert):
-        square = boardArray[coordHorizontal, coordVert];
+        square = boardArray[coordHorizontal][coordVert];
         if self.faction == factionColor.FACTION_WHITE:
             if coordHorizontal == self.x and self.y == 2 and coordVert == self.y + 2:
                 if square == None:
