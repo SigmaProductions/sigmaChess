@@ -1,4 +1,4 @@
-from main import *
+from board import *
 
 ##test if piecePawn can move
 ##TODO add test for both factions

@@ -1,4 +1,4 @@
-from main import *
+from board import *
 from pieces import *
 
 
