@@ -25,14 +25,21 @@ class chessBoard:
         return boardArray
 
     def movePiece(self, pieceToMove, xNew, yNew):
+        """this method  performs both attack and move"""
+        ##check if it can move
         isAttack = pieceToMove.checkAttack(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
         if isAttack == True:
             self.__move(pieceToMove, xNew, yNew)
             return True
+
+        ##check if it can attack
         isLegal = pieceToMove.checkMove(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
         if isLegal == True:
             self.__move(pieceToMove, xNew, yNew)
             return True
+
+        #cant do neither
+        return False
 
 
     def __move(self,pieceToMove, xNew, yNew):
