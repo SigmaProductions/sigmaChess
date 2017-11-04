@@ -26,7 +26,7 @@ class piecePawn(chessPiece):
             if coordVert == self.y - 1 and (abs(coordHorizontal - self.x == 1)):
                 if square.faction is not self.faction:
                     return True;
-         return False;
+            return False;
 
     def checkMove(self, boardArray, coordHorizontal, coordVert):
         square = boardArray[coordHorizontal][coordVert];
@@ -43,7 +43,7 @@ class piecePawn(chessPiece):
                 return True;
             if coordHorizontal == self.x and coordVert == self.y - 1:
                 return True;
-        return False;
+            return False;
 
 class pieceKing(chessPiece):
 
