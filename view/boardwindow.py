@@ -1,6 +1,6 @@
 from tkinter import *
-from view.piecesimages import *
-
+from view.boardimages import *
+import pieces
 
 
 class BoardWindow(Frame):
@@ -9,28 +9,39 @@ class BoardWindow(Frame):
         super().__init__(master)
         self.piecesOnCanvas=[]
         #load pieces images from graphics/pieces/ folder
-        self.piecesImages = PiecesGraphicsDict()
-        self.piecesImages.loadImages("graphics/pieces/")
+        self.piecesImages = BoardGraphicsDict()
+        self.piecesImages.loadImages()
 
+        #create boardCanvas on which tiles and pieces will be drawn
+        self.piecesCanvas = Canvas(self.master, width=self.piecesImages["pawn"].width() * 8,
+                              height=self.piecesImages["pawn"].height() * 8)
+        self.piecesCanvas.pack()
 
+        #bind event left mouse button click to clicked function
+        self.piecesCanvas.bind("<Button-1>", self.clicked)
 
     def drawBoard(self, chessBoard):
-        piecesCanvas = Canvas(self.master, width=self.piecesImages["pawn"].width() * 8,
-                              height=self.piecesImages["pawn"].height() * 8)
-        piecesCanvas.pack()
+        """this method wipes canvas in the frame and draws it anew"""
+        # TODO rewrite it to make it more efficient possibly moving every piece's graphic to canvas widget
+
+        self.piecesCanvas.delete("all")
 
         for i in range(8):
             for j in range(8):
-
-                if(chessBoard.getPiece(i,j)== None):
+                tilePiece= chessBoard.getPiece(i,j)
+                if(tilePiece== None):
+                    self.piecesCanvas.create_image(self.__translateBoardCoords(i, j), image=self.piecesImages["tile"])
                     continue
-                piece=piecesCanvas.create_image(self.__translateBoardCoords(i,j), image=self.piecesImages["pawn"])
-                self.piecesOnCanvas.append(piece)
+                elif(type(tilePiece)==pieces.piecePawn):
+                    self.piecesCanvas.create_image(self.__translateBoardCoords(i,j), image=self.piecesImages["pawn"])
 
 
 
+    def clicked(self,event):
+        print("clicked at", event.x, event.y)
 
     def __translateBoardCoords(self,boardPositionX, boardPositionY):
+        """translates integer position on the chess board to pixel position in canvas"""
         return (boardPositionX*64 + 32,(64*8)- (boardPositionY*64)-32)
 
 
@@ -46,6 +57,11 @@ if __name__ == "__main__":
     x=chessBoard()
     root= Tk()
     app = BoardWindow(root)
+    app.drawBoard(x)
+
+    input("w")
+    p=x.getPiece(0,1)
+    x.movePiece(p,0,2)
     app.drawBoard(x)
     root.mainloop()
 
