@@ -33,7 +33,7 @@ class piecePawn(chessPiece):
         if square is not None:
             return False;
         if self.faction == factionColor.FACTION_WHITE:
-            if coordHorizontal == self.x and self.y == 2 and coordVert == self.y + 2:
+            if coordHorizontal == self.x and self.y == 1 and coordVert == self.y + 2:
                 return True;
             elif coordHorizontal == self.x and coordVert == self.y + 1:
                 return True;
