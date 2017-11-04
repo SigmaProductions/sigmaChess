@@ -28,6 +28,7 @@ class chessPiece:
                 return False
         return True
 
+
 class piecePawn(chessPiece):
     name = "pawn"
     def checkAttack(self, boardArray, coordHorizontal, coordVert):
