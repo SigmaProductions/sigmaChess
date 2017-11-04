@@ -11,3 +11,5 @@ piece= board.getPiece(6,1)
 board.movePiece(piece,6,2)
 
 board.PRINTBOARD()
+
+

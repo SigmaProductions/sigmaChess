@@ -34,12 +34,12 @@ class piecePawn(chessPiece):
         if square is None:
             return False;
         if self.faction == factionColor.FACTION_WHITE:
-            if coordVert == self.y + 1 and (abs(coordHorizontal - self.x == 1)):
+            if coordVert == self.y + 1 and (abs(coordHorizontal - self.x) == 1):
                 if square.faction is not self.faction:
                     return True;
                 return False;
-        else:
-            if coordVert == self.y - 1 and (abs(coordHorizontal - self.x == 1)):
+        elif self.faction == factionColor.FACTION_BLACK:
+            if coordVert + 1 == self.y  and (abs(coordHorizontal - self.x) == 1):
                 if square.faction is not self.faction:
                     return True;
             return False;
