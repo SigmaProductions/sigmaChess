@@ -31,7 +31,7 @@ class BoardWindow(Frame):
 
 
     def __translateBoardCoords(self,boardPositionX, boardPositionY):
-        return (boardPositionX*64 + 32,(64*8)- (boardPositionY*64)+32)
+        return (boardPositionX*64 + 32,(64*8)- (boardPositionY*64)-32)
 
 
 
