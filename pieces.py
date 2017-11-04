@@ -12,7 +12,11 @@ class chessPiece:
         self.faction=faction;
 
     def checkPath(self, boardArray, coordHorizontal, coordVert):
-        a = int((coordHorizontal - self.x)/(coordVert - self.y))
+        xValue = coordVert - self.y
+        if xValue == 0:
+            a = int((coordHorizontal - self.x))
+        else:
+            a = int((coordHorizontal - self.x)/(xValue))
         b = int(self.y - (self.x*a))
         if self.x >= coordHorizontal:
             high = self.x
