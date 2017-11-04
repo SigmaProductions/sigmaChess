@@ -6,6 +6,7 @@ from board import *
 board= chessBoard()
 
 board.PRINTBOARD()
+print("\n")
 
 piece= board.getPiece(6,1)
 board.movePiece(piece,6,2)
