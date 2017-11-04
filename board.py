@@ -60,6 +60,15 @@ class chessBoard:
                     print("P", end="")
                 else:
                     print("-", end="")
+    def TESTBOARD1(self):
+        testBoard = self.__createEmptyArray()
+        testBoard[4][4] = piecePawn(4, 4, factionColor.FACTION_BLACK)
+        self.boardArray = testBoard
+
+    def TESTBOARD2(self):
+        testBoard = self.__createEmptyArray()
+        testBoard[4][4] = piecePawn(4, 4, factionColor.FACTION_WHITE)
+        self.boardArray = testBoard
 
     def isVictory(self):
         whiteExist = False
@@ -76,3 +85,4 @@ class chessBoard:
             print("White victory!")
         if whiteExist != True:
             print("Black victory!")
+
