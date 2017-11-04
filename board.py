@@ -19,7 +19,7 @@ class chessBoard:
         for i in range(2):
             for k in range(8):
                 boardArray[k][i] = piecePawn(k, i, factionColor.FACTION_WHITE)
-                boardArray[k][7-i] = piecePawn(k, -i, factionColor.FACTION_BLACK)
+                boardArray[k][7-i] = piecePawn(k, 7-i, factionColor.FACTION_BLACK)
         return boardArray
 
     def movePiece(self, pieceToMove, xNew, yNew):

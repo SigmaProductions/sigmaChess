@@ -13,8 +13,8 @@ class BoardWindow(Frame):
         self.piecesImages.loadImages()
 
         #create boardCanvas on which tiles and pieces will be drawn
-        self.piecesCanvas = Canvas(self.master, width=self.piecesImages["pawn"].width() * 8,
-                              height=self.piecesImages["pawn"].height() * 8)
+        self.piecesCanvas = Canvas(self.master, width=64 * 8,
+                              height=64 * 8)
         self.piecesCanvas.pack()
 
 
@@ -31,7 +31,11 @@ class BoardWindow(Frame):
                     self.piecesCanvas.create_image(self.__translateBoardCoords(i, j), image=self.piecesImages["tile"])
                     continue
                 elif(type(tilePiece)==pieces.piecePawn):
-                    self.piecesCanvas.create_image(self.__translateBoardCoords(i,j), image=self.piecesImages["pawn"])
+                    if(tilePiece.faction == pieces.factionColor.FACTION_WHITE):
+                        self.piecesCanvas.create_image(self.__translateBoardCoords(i,j), image=self.piecesImages["pawn"])
+                    if (tilePiece.faction == pieces.factionColor.FACTION_BLACK):
+                        self.piecesCanvas.create_image(self.__translateBoardCoords(i, j),image=self.piecesImages["pawnBlack"])
+
 
 
 
