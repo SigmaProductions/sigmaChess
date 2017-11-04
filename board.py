@@ -8,9 +8,9 @@ class chessBoard:
 
     def __createEmptyArray(self):
         hArray = []
-        for i in range(9):
+        for i in range(8):
             hArray.append([])
-            for k in range(9):
+            for k in range(8):
                 hArray[i].append(None)
         return hArray
 
@@ -43,13 +43,13 @@ class chessBoard:
         """this method  performs both attack and move"""
         ##check if it can move
         isAttack = pieceToMove.checkAttack(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isAttack == True and chessPiece.isInRange(self,coordHorizontal=xNew, coordVert=yNew) == True:
+        if isAttack == True:
             self.__move(pieceToMove, xNew, yNew)
             return True
 
         ##check if it can attack
         isLegal = pieceToMove.checkMove(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isLegal == True and chessPiece.isInRange(self,coordHorizontal=xNew, coordVert=yNew) == True:
+        if isLegal == True:
             self.__move(pieceToMove, xNew, yNew)
             return True
 
