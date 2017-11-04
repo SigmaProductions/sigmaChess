@@ -85,7 +85,8 @@ class pieceRook(chessPiece):
 
     def checkMove(self, boardArray, coordHorizontal, coordVert):
         square = boardArray[coordHorizontal][coordVert]
-        if coordHorizontal in range(8) and coordVert == self.y and square.faction is not self.faction or coordVert in range(8) and coordHorizontal == self.x and square.faction is not self.faction:
+        emptyPath = self.checkPath(boardArray, coordHorizontal, coordVert)
+        if coordHorizontal in range(8) and coordVert == self.y or coordVert in range(8) and coordHorizontal == self.x and emptyPath is not False:
             if square is None:
                 return True
             if square.faction is not self.faction:
@@ -121,7 +122,20 @@ class pieceKnight(chessPiece):
                 return True
         return False
 
+class pieceQueen(chessPiece):
 
+    def checkAttack(self, boardArray, coordHorizontal, coordVert):
+        return self.checkMove(boardArray, coordHorizontal, coordVert)
+
+    def checkMove(self, boardArray, coordHorizontal, coordVert):
+        square = boardArray[coordHorizontal][coordVert]
+        emptyPath = self.checkPath(boardArray, coordHorizontal, coordVert)
+        if coordVert == self.y or coordHorizontal == self.x or coordHorizontal == self.x or abs(coordHorizontal - self.x) == abs(coordVert - self.y) and coordHorizontal in range(8) and coordVert in range(8) and emptyPath is not False:
+            if square is None:
+                return True
+            if square.faction is not self.faction:
+                return True
+        return False
 
 
 
