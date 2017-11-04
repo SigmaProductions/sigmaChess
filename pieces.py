@@ -26,6 +26,12 @@ class chessPiece:
             if boardArray[squarex][squarey] is not None:
                 return False
         return True
+    def isInRange(self, coordHorizontal, coordVert):
+        if coordVert < 8 and coordVert > -1:
+            if coordHorizontal < 8 and coordHorizontal > -1:
+                print("true")
+                return True;
+        return False;
 
 class piecePawn(chessPiece):
 
