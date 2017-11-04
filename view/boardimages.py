@@ -1,19 +1,21 @@
 from tkinter import PhotoImage
 from tkinter import Canvas
-
+import os.path
 
 
 
 class BoardGraphicsDict:
     Images=dict()
+    Path= None
 
     def __init__(self):
+        self.Path= os.path.dirname(os.path.abspath(__file__))
         return
 
     def loadImages(self):
         """loads images into dict"""
-        pawnImage= PhotoImage(file = "graphics/pieces/pawn.gif")
-        tileImage = PhotoImage(file = "graphics/tiles/placeholder.gif")
+        pawnImage= PhotoImage(file = self.Path+ "\graphics\pieces\pawn.gif")
+        tileImage = PhotoImage(file = self.Path+"\graphics\\tiles\placeholder.gif")
 
         self.Images.update({"tile":tileImage})
         self.Images.update({"pawn":pawnImage})

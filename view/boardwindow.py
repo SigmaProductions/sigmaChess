@@ -17,8 +17,6 @@ class BoardWindow(Frame):
                               height=self.piecesImages["pawn"].height() * 8)
         self.piecesCanvas.pack()
 
-        #bind event left mouse button click to clicked function
-        self.piecesCanvas.bind("<Button-1>", self.clicked)
 
     def drawBoard(self, chessBoard):
         """this method wipes canvas in the frame and draws it anew"""
@@ -37,8 +35,9 @@ class BoardWindow(Frame):
 
 
 
-    def clicked(self,event):
-        print("clicked at", event.x, event.y)
+    def addBinding(self, eventName, function):
+        self.piecesCanvas.bind(eventName, function)
+
 
     def __translateBoardCoords(self,boardPositionX, boardPositionY):
         """translates integer position on the chess board to pixel position in canvas"""

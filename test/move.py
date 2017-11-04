@@ -1,6 +1,6 @@
 from board import *
 
-##test if piecePawn can move
+##test if piecePawn can move one square
 ##TODO add test for both factions
 
 board= chessBoard()
