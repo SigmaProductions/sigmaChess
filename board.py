@@ -8,9 +8,9 @@ class chessBoard:
 
     def __createEmptyArray(self):
         hArray = []
-        for i in range(8):
+        for i in range(9):
             hArray.append([])
-            for k in range(8):
+            for k in range(9):
                 hArray[i].append(None)
         return hArray
 
@@ -21,20 +21,20 @@ class chessBoard:
                 boardArray[k][i] = piecePawn(k, i, factionColor.FACTION_WHITE)
         for i in range(8, 6):
             for k in range(8):
-                boardArray[k][i] = piecePawn(k, i, factionColor.FACTION_BLACK)
+                boardArray[k][7-i] = piecePawn(k, 7-i, factionColor.FACTION_BLACK)
         return boardArray
 
     def movePiece(self, pieceToMove, xNew, yNew):
         """this method  performs both attack and move"""
         ##check if it can move
         isAttack = pieceToMove.checkAttack(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isAttack == True:
+        if isAttack == True and chessPiece.isInRange(self,coordHorizontal=xNew, coordVert=yNew) == True:
             self.__move(pieceToMove, xNew, yNew)
             return True
 
         ##check if it can attack
         isLegal = pieceToMove.checkMove(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isLegal == True:
+        if isLegal == True and chessPiece.isInRange(self,coordHorizontal=xNew, coordVert=yNew) == True:
             self.__move(pieceToMove, xNew, yNew)
             return True
 
@@ -67,15 +67,6 @@ class chessBoard:
                     print("K", end="")
                 else:
                     print("-", end="")
-    def TESTBOARD1(self):
-        testBoard = self.__createEmptyArray()
-        testBoard[4][4] = piecePawn(4, 4, factionColor.FACTION_BLACK)
-        self.boardArray = testBoard
-
-    def TESTBOARD2(self):
-        testBoard = self.__createEmptyArray()
-        testBoard[4][4] = piecePawn(4, 4, factionColor.FACTION_WHITE)
-        self.boardArray = testBoard
 
     def isVictory(self):
         whiteExist = False
