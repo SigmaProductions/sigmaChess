@@ -19,8 +19,6 @@ class chessBoard:
         for i in range(2):
             for k in range(8):
                 boardArray[k][i] = piecePawn(k, i, factionColor.FACTION_WHITE)
-        for i in range(8, 6):
-            for k in range(8):
                 boardArray[k][7-i] = piecePawn(k, 7-i, factionColor.FACTION_BLACK)
         return boardArray
 
@@ -65,6 +63,14 @@ class chessBoard:
                     print("P", end="")
                 elif type(self.boardArray[j][7-i]) is pieceKing:
                     print("K", end="")
+                elif type(self.boardArray[j][7-i]) is pieceBishop:
+                    print("B", end="")
+                elif type(self.boardArray[j][7-i]) is pieceKnight:
+                    print("N", end="")
+                elif type(self.boardArray[j][7-i]) is pieceRook:
+                    print("R", end="")
+                #elif type(self.boardArray[j][7-i]) is pieceQueen:
+                 #   print("Q",end="")
                 else:
                     print("-", end="")
 
@@ -83,4 +89,3 @@ class chessBoard:
             print("White victory!")
         if whiteExist != True:
             print("Black victory!")
-
