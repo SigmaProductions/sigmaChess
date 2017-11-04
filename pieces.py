@@ -47,18 +47,19 @@ class piecePawn(chessPiece):
 
 class pieceKing(chessPiece):
 
-    def checkAttack(self, boardArray, attackX, attackY):
-        square=boardArray[attackX,attackY];
-        if (abs(attackX - self.x) == 1) and (abs(attackY - self.y) == 1):
+    def checkAttack(self, boardArray, coordHorizontal, coordVert):
+        square=boardArray[coordHorizontal][coordVert];
+        if (abs(coordHorizontal - self.x) <= 1) and (abs(coordVert - self.y) <= 1):
             if square is not None and square.faction is not self.faction:
                 return True;
         return False;
 
-    def checkMove(self, boardArray, moveX, moveY):
-        square=boardArray[moveX,moveY];
-        if (abs(moveX - self.x) == 1) and (abs(moveY - self.y) == 1):
-            if square == None:
-                return True;
+    def checkMove(self, boardArray, coordHorizontal, coordVert):
+        square=boardArray[coordHorizontal][coordVert];
+        if square is not None:
+            return False;
+        if (abs(coordHorizontal - self.x) <= 1) and (abs(coordVert - self.y) <= 1):
+            return True;
         return False;
 
 
