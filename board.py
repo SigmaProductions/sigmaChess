@@ -45,6 +45,11 @@ class chessBoard:
     def __move(self,pieceToMove, xNew, yNew):
         xCurrent = pieceToMove.x
         yCurrent = pieceToMove.y
+
+        #change coords inside piece object
+        pieceToMove.x=xNew
+        pieceToMove.y=yNew
+
         self.boardArray[xNew][yNew] = pieceToMove
         self.boardArray[xCurrent][yCurrent] = None
 
