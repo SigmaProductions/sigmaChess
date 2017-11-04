@@ -27,14 +27,16 @@ class BoardWindow(Frame):
         for i in range(8):
             for j in range(8):
                 tilePiece= chessBoard.getPiece(i,j)
+
+                #TODO remove this clusterfuck
                 if(tilePiece== None):
                     self.piecesCanvas.create_image(self.__translateBoardCoords(i, j), image=self.piecesImages["tile"])
                     continue
-                elif(type(tilePiece)==pieces.piecePawn):
-                    if(tilePiece.faction == pieces.factionColor.FACTION_WHITE):
-                        self.piecesCanvas.create_image(self.__translateBoardCoords(i,j), image=self.piecesImages["pawn"])
-                    if (tilePiece.faction == pieces.factionColor.FACTION_BLACK):
-                        self.piecesCanvas.create_image(self.__translateBoardCoords(i, j),image=self.piecesImages["pawnBlack"])
+                else:
+                    if(tilePiece.faction== pieces.factionColor.FACTION_WHITE):
+                        self.piecesCanvas.create_image(self.__translateBoardCoords(i, j), image=self.piecesImages[tilePiece.name])
+                    elif(tilePiece.faction== pieces.factionColor.FACTION_BLACK):
+                        self.piecesCanvas.create_image(self.__translateBoardCoords(i, j),image=self.piecesImages[tilePiece.name + "Black"])
 
 
 

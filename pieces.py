@@ -5,11 +5,12 @@ class factionColor (Enum):
     FACTION_BLACK = 2;
 
 class chessPiece:
-
+    name = None
     def __init__(self, hX, hY, faction):
         self.x = hX;
         self.y = hY;
         self.faction=faction;
+
 
     def checkPath(self, boardArray, coordHorizontal, coordVert):
         a = int((coordHorizontal - self.x)/(coordVert - self.y))
@@ -33,7 +34,7 @@ class chessPiece:
         return False;
 
 class piecePawn(chessPiece):
-
+    name = "pawn"
     def checkAttack(self, boardArray, coordHorizontal, coordVert):
         square = boardArray[coordHorizontal][coordVert];
         if square is None:
@@ -67,6 +68,7 @@ class piecePawn(chessPiece):
             return False;
 
 class pieceKing(chessPiece):
+    name = "king"
 
     def checkAttack(self, boardArray, coordHorizontal, coordVert):
         square=boardArray[coordHorizontal][coordVert];
@@ -84,6 +86,7 @@ class pieceKing(chessPiece):
         return False;
 
 class pieceRook(chessPiece):
+    name = "rook"
 
     def checkAttack(self, boardArray, coordHorizontal, coordVert):
         return self.checkMove(boardArray, coordHorizontal, coordVert)
@@ -98,7 +101,8 @@ class pieceRook(chessPiece):
                 return True
         return False
 
-class pieceBishop(chessPiece):
+class pieceBishop    (chessPiece):
+    name = "bishop"
 
     def checkAttack(self, boardArray, coordHorizontal, coordVert):
         return self.checkMove(boardArray, coordHorizontal, coordVert)
@@ -114,6 +118,7 @@ class pieceBishop(chessPiece):
         return False
 
 class pieceKnight(chessPiece):
+    name = "knight"
 
     def checkAttack(self, boardArray, coordHorizontal, coordVert):
         return self.checkMove(boardArray, coordHorizontal, coordVert)
@@ -128,6 +133,7 @@ class pieceKnight(chessPiece):
         return False
 
 class pieceQueen(chessPiece):
+    name = "queen"
 
     def checkAttack(self, boardArray, coordHorizontal, coordVert):
         return self.checkMove(boardArray, coordHorizontal, coordVert)
