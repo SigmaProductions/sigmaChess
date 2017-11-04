@@ -58,6 +58,8 @@ class chessBoard:
             for j in range(8):
                 if type(self.boardArray[j][7 - i]) is piecePawn:
                     print("P", end="")
+                elif type(self.boardArray[j][7-i]) is pieceKing:
+                    print("K", end="")
                 else:
                     print("-", end="")
 
