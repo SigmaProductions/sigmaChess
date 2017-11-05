@@ -33,17 +33,23 @@ class EventHandler:
         if(self.pieceSuspended!=None):
             if(self.__movePiece(self.pieceSuspended, chessCoords)):
                 self.pieceSuspended = None
-                self.viewClient.drawBoard(self.boardClient)
+                self.viewClient.viewBoardClient.drawBoard(self.boardClient)
                 return
 
         self.pieceSuspended = self.boardClient.getPiece(chessCoords[0], chessCoords[1])
+
+    def networkConnect(self, address):
+        if(self.networkClient.online):
+            return False
+        self.networkClient.goOnline(self.networkMove, address)
+        return True
 
     def networkMove(self,movePacket):
         pieceToMove=self.boardClient.getPiece(movePacket.fromCoords[0],movePacket.fromCoords[1])
 
         if not self.boardClient.movePiece(pieceToMove,movePacket.toCoords[0],movePacket.toCoords[1]):
             raise(BaseException("illegal move"))
-        self.viewClient.drawBoard(self.boardClient)
+        self.viewClient.viewBoardClient.drawBoard(self.boardClient)
 
 
 

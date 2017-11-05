@@ -12,10 +12,9 @@ class BoardWindow(Frame):
         self.piecesImages.loadImages()
 
         #create boardCanvas on which tiles and pieces will be drawn
-        self.piecesCanvas = Canvas(self.master, width=64 * 8,
+        self.piecesCanvas = Canvas(self, width=64 * 8,
                               height=64 * 8)
         self.piecesCanvas.pack()
-
 
     def drawBoard(self, chessBoard):
         """this method wipes canvas in the frame and draws it anew"""
@@ -27,7 +26,6 @@ class BoardWindow(Frame):
             for j in range(8):
                 tilePiece= chessBoard.getPiece(i,j)
 
-                #TODO remove this clusterfuck
                 if(tilePiece== None):
                     self.piecesCanvas.create_image(self.__translateBoardCoords(i, j), image=self.piecesImages["tile"])
                     continue

@@ -7,7 +7,7 @@ class ConnectionHandler:
     def __init__(self):
         self.online=False
         self.port= 9332
-        self.address= "192.168.88.17"
+        self.address= ""
         self.receiver = socket.socket(family=socket.AF_INET)
         self.transmitter= socket.socket(family=socket.AF_INET)
 
@@ -24,17 +24,23 @@ class ConnectionHandler:
         self.transmitterThread = threading.Thread(target=self.__SendData, args=[packetSerial])
         self.transmitterThread.start()
 
-    def goOnline(self,moveCallback):
-        self.online = True
+    def goOnline(self,moveCallback, address):
+        """try to connect and vind callback to network move packet"""
 
+        #listen on every ip address
         self.receiver.bind(('', self.port))
         self.receiver.listen()
+        #target address given in param
+        self.address = address
 
         #try to connect if cant run chess in offline mode
         #TODO move it it doesnt work now; waiting for UI implementation
         self.transmitter.connect((self.address, self.port))
 
+        #transmitter has connected so we can consider outselves online
+        self.online = True
 
+        #start listening on separate thread
         self.receiverThread = threading.Thread(target=self.__Await, args= [moveCallback])
         self.receiverThread.start()
 
