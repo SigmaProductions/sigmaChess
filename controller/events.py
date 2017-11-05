@@ -17,9 +17,11 @@ class EventHandler:
 
     def __movePiece(self, pieceToMove, targetCoords):
         """use ONLY this method for moving pieces from controller"""
+
+        self.networkClient.SendMove(pieceToMove, targetCoords)
         if not self.boardClient.movePiece(pieceToMove, targetCoords[0], targetCoords[1]):
             return False
-        self.networkClient.SendMove(pieceToMove,targetCoords)
+
 
         return True
     def boardClicked(self, event):

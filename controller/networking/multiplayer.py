@@ -46,18 +46,18 @@ class ConnectionHandler:
                 #try to connect until successful
                 connection, address=self.receiver.accept()
             while(self.online):
-                try:
-                    #try to collect data until it works
-                    moveSerial = connection.recv(1024)
-                except:
-                    #if it doesnt go back to connecting
-                    print("exception on receinve")
-                    break
+                moveSerial=[]
+                while True:
+                    chunk = connection.recv(1024)
+                    if not chunk:
+                        break
+                        moveSerial.append(chunk)
                 move = pickle.loads(moveSerial)
                 moveCallback(move)
 
     def __SendData(self,data):
         self.transmitter.connect((self.address,self.port))
         self.transmitter.sendall(data)
+        self.transmitter.close()
 
 
