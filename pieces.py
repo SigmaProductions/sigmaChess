@@ -1,4 +1,5 @@
 from enum import Enum
+import pathing
 
 class factionColor (Enum):
     FACTION_WHITE = 1;
@@ -11,26 +12,6 @@ class chessPiece:
         self.y = hY;
         self.faction=faction;
 
-
-    def checkPath(self, boardArray, coordHorizontal, coordVert):
-        xValue = coordVert - self.y
-        if xValue == 0:
-            a = int((coordHorizontal - self.x))
-        else:
-            a = int((coordHorizontal - self.x)/(xValue))
-        b = int(self.y - (self.x*a))
-        if self.x >= coordHorizontal:
-            high = self.x
-            low = coordHorizontal
-        else:
-            high = coordHorizontal
-            low = self.x
-
-        for squarex in range(low+1, high):
-            squarey = squarex*a + b
-            if boardArray[squarex][squarey] is not None:
-                return False
-        return True
 
 class piecePawn(chessPiece):
     name = "pawn"
@@ -92,15 +73,15 @@ class pieceRook(chessPiece):
 
     def checkMove(self, boardArray, coordHorizontal, coordVert):
         square = boardArray[coordHorizontal][coordVert]
-        emptyPath = self.checkPath(boardArray, coordHorizontal, coordVert)
-        if coordHorizontal in range(8) and coordVert == self.y or coordVert in range(8) and coordHorizontal == self.x and emptyPath is not False:
+        emptyPath = pathing.piecePath(self.x, self.y, boardArray, coordHorizontal, coordVert)
+        if (coordVert == self.y or coordHorizontal == self.x) and emptyPath is not False:
             if square is None:
                 return True
             if square.faction is not self.faction:
                 return True
         return False
 
-class pieceBishop    (chessPiece):
+class pieceBishop(chessPiece):
     name = "bishop"
 
     def checkAttack(self, boardArray, coordHorizontal, coordVert):
@@ -108,8 +89,8 @@ class pieceBishop    (chessPiece):
 
     def checkMove(self, boardArray, coordHorizontal, coordVert):
         square = boardArray[coordHorizontal][coordVert]
-        emptyPath = self.checkPath(boardArray, coordHorizontal, coordVert)
-        if abs(coordHorizontal - self.x) == abs(coordVert - self.y) and coordHorizontal in range(8) and coordVert in range(8) and emptyPath is not False:
+        emptyPath = pathing.piecePath(self.x, self.y,boardArray, coordHorizontal, coordVert)
+        if abs(coordHorizontal - self.x) == abs(coordVert - self.y) and emptyPath is not False:
             if square is None:
                 return True
             if square.faction is not self.faction:
@@ -139,8 +120,8 @@ class pieceQueen(chessPiece):
 
     def checkMove(self, boardArray, coordHorizontal, coordVert):
         square = boardArray[coordHorizontal][coordVert]
-        emptyPath = self.checkPath(boardArray, coordHorizontal, coordVert)
-        if coordVert == self.y or coordHorizontal == self.x or coordHorizontal == self.x or abs(coordHorizontal - self.x) == abs(coordVert - self.y) and coordHorizontal in range(8) and coordVert in range(8) and emptyPath is not False:
+        emptyPath = pathing.piecePath(self.x, self.y,boardArray, coordHorizontal, coordVert)
+        if (abs(coordHorizontal - self.x) == abs(coordVert - self.y) or (coordVert == self.y or coordHorizontal == self.x)) and emptyPath is not False:
             if square is None:
                 return True
             if square.faction is not self.faction:
