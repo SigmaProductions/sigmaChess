@@ -58,6 +58,7 @@ class chessBoard:
     def movePiece(self, pieceToMove, xNew, yNew):
         """this method  performs both attack and move"""
         ##check if it can move
+
         isAttack = pieceToMove.checkAttack(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
         if isAttack == True:
             self.__move(pieceToMove, xNew, yNew)
@@ -83,7 +84,14 @@ class chessBoard:
 
         self.boardArray[xNew][yNew] = pieceToMove
         self.boardArray[xCurrent][yCurrent] = None
+        if type(self.boardArray[xNew][yNew] == piecePawn):
+            self.pawnPromotion(xNew, yNew)
 
+    def pawnPromotion(self, xNew, yNew):
+        if yNew == 7:
+            self.boardArray[xNew][yNew] = pieceQueen(xNew, yNew, factionColor.FACTION_WHITE)
+        elif yNew == 0:
+            self.boardArray[xNew][yNew] = pieceQueen(xNew, yNew, factionColor.FACTION_BLACK)
 
     def getPiece(self,coordHorizontal, coordVert):
         return self.boardArray[coordHorizontal][coordVert]
