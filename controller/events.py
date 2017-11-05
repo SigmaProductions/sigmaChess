@@ -47,8 +47,8 @@ class EventHandler:
     def networkMove(self,movePacket):
         pieceToMove=self.boardClient.getPiece(movePacket.fromCoords[0],movePacket.fromCoords[1])
 
-        if not self.boardClient.movePiece(pieceToMove,movePacket.toCoords[0],movePacket.toCoords[1]):
-            raise(BaseException("illegal move"))
+        self.boardClient.movePiece(pieceToMove,movePacket.toCoords[0],movePacket.toCoords[1])
+
         self.viewClient.viewBoardClient.drawBoard(self.boardClient)
 
 

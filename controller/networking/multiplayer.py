@@ -17,7 +17,7 @@ class ConnectionHandler:
     def SendMove(self, pieceToMove, targetCoords):
         if not self.online:
             return False
-
+        print("moved")
         packet= movePacket((pieceToMove.x,pieceToMove.y), targetCoords)
         packetSerial= pickle.dumps(packet)
 
@@ -70,6 +70,7 @@ class ConnectionHandler:
 
     def __SendData(self,data):
         try:
+            print("data sent")
             self.transmitter.sendall(data)
         except(TimeoutError):
             self.goOffline()
