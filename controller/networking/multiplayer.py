@@ -7,13 +7,8 @@ class ConnectionHandler:
     def __init__(self):
         self.port= 9332
         self.address= "192.168.88.17"
-
-
         self.receiver = socket.socket(family=socket.AF_INET)
         self.transmitter= socket.socket(family=socket.AF_INET)
-
-
-
 
     def __del__(self):
         self.transmitter.close()
@@ -31,6 +26,7 @@ class ConnectionHandler:
 
         self.receiver.bind(('', self.port))
         self.receiver.listen()
+        self.transmitter.connect((self.address, self.port))
 
         self.receiverThread = threading.Thread(target=self.__Await, args= [moveCallback])
         self.receiverThread.start()
@@ -46,18 +42,16 @@ class ConnectionHandler:
                 #try to connect until successful
                 connection, address=self.receiver.accept()
             while(self.online):
-                moveSerial=[]
-                while True:
-                    chunk = connection.recv(1024)
-                    if not chunk:
-                        break
-                        moveSerial.append(chunk)
+                moveSerial = connection.recv(1024)
+                if( not moveSerial):
+                    continue
                 move = pickle.loads(moveSerial)
                 moveCallback(move)
 
     def __SendData(self,data):
-        self.transmitter.connect((self.address,self.port))
+
+        print(pickle.dumps(data))
         self.transmitter.sendall(data)
-        self.transmitter.close()
+
 
 
