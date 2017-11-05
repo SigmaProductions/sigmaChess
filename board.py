@@ -16,27 +16,43 @@ class chessBoard:
 
     def __spawnPieces(self):
         boardArray = self.__createEmptyArray()
-        for k in range(8):
-            boardArray[k][1] = piecePawn(k, 1, factionColor.FACTION_WHITE)
-            boardArray[k][6] = piecePawn(k, 6, factionColor.FACTION_BLACK)
-
-        boardArray[0][0] = pieceRook(0 ,0, factionColor.FACTION_WHITE)
-        boardArray[1][0] = pieceKnight(1, 0, factionColor.FACTION_WHITE)
-        boardArray[2][0] = pieceBishop(2, 0, factionColor.FACTION_WHITE)
-        boardArray[3][0] = pieceQueen(3, 0, factionColor.FACTION_WHITE)
-        boardArray[4][0] = pieceKing(4, 0, factionColor.FACTION_WHITE)
-        boardArray[5][0] = pieceBishop(5, 0, factionColor.FACTION_WHITE)
-        boardArray[6][0] = pieceKnight(6, 0, factionColor.FACTION_WHITE)
-        boardArray[7][0] = pieceRook(7, 0, factionColor.FACTION_WHITE)
-
-        boardArray[0][7] = pieceRook(0, 7, factionColor.FACTION_BLACK)
-        boardArray[1][7] = pieceKnight(1, 7, factionColor.FACTION_BLACK)
-        boardArray[2][7] = pieceBishop(2, 7, factionColor.FACTION_BLACK)
-        boardArray[3][7] = pieceQueen(3, 7, factionColor.FACTION_BLACK)
-        boardArray[4][7] = pieceKing(4, 7, factionColor.FACTION_BLACK)
-        boardArray[5][7] = pieceBishop(5, 7, factionColor.FACTION_BLACK)
-        boardArray[6][7] = pieceKnight(6, 7, factionColor.FACTION_BLACK)
-        boardArray[7][7] = pieceRook(7, 7, factionColor.FACTION_BLACK)
+        boardtemplate = open(r"C:\Users\Przrg\Desktop\SIGMAchess\sigmaChess\boardtemplate.txt", "r" )
+        for y in range(8):
+            line = boardtemplate.readline()
+            for x in range(8):
+                whatPiece = line[x]
+                if whatPiece == "O":
+                    boardArray[x][y] = None
+                elif whatPiece == "P":
+                    if y <= 3:
+                        boardArray[x][y] = piecePawn(x, y, factionColor.FACTION_WHITE)
+                    else:
+                        boardArray[x][y] = piecePawn(x, y, factionColor.FACTION_BLACK)
+                elif whatPiece == "R":
+                    if y <= 3:
+                        boardArray[x][y] = pieceRook(x, y, factionColor.FACTION_WHITE)
+                    else:
+                        boardArray[x][y] = pieceRook(x, y, factionColor.FACTION_BLACK)
+                elif whatPiece == "N":
+                    if y <= 3:
+                        boardArray[x][y] = pieceKnight(x, y, factionColor.FACTION_WHITE)
+                    else:
+                        boardArray[x][y] = pieceKnight(x, y, factionColor.FACTION_BLACK)
+                elif whatPiece == "B":
+                    if y <= 3:
+                        boardArray[x][y] = pieceBishop(x, y, factionColor.FACTION_WHITE)
+                    else:
+                        boardArray[x][y] = pieceBishop(x, y, factionColor.FACTION_BLACK)
+                elif whatPiece == "Q":
+                    if y <= 3:
+                        boardArray[x][y] = pieceQueen(x, y, factionColor.FACTION_WHITE)
+                    else:
+                        boardArray[x][y] = pieceQueen(x, y, factionColor.FACTION_BLACK)
+                elif whatPiece == "K":
+                    if y <= 3:
+                        boardArray[x][y] = pieceKing(x, y, factionColor.FACTION_WHITE)
+                    else:
+                        boardArray[x][y] = pieceKing(x, y, factionColor.FACTION_BLACK)
         return boardArray
 
     def movePiece(self, pieceToMove, xNew, yNew):
