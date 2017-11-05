@@ -7,7 +7,6 @@ class BoardWindow(Frame):
 
     def __init__(self,master):
         super().__init__(master)
-        self.piecesOnCanvas=[]
         #load pieces images from graphics/pieces/ folder
         self.piecesImages = BoardGraphicsDict()
         self.piecesImages.loadImages()
