@@ -84,7 +84,7 @@ class chessBoard:
 
         self.boardArray[xNew][yNew] = pieceToMove
         self.boardArray[xCurrent][yCurrent] = None
-        if type(self.boardArray[xNew][yNew] == piecePawn):
+        if (type(self.boardArray[xNew][yNew]) == piecePawn):
             self.pawnPromotion(xNew, yNew)
 
     def pawnPromotion(self, xNew, yNew):
