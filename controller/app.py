@@ -20,6 +20,8 @@ class SigmaChess:
         #this binds functions in event handler to actions performed on window
         self.bindEvents()
 
+        self.multiplayerClient.goOnline(self.eventsClient.networkMove)
+
         #draw window and enter mainloop
         self.viewClient.drawBoard(self.boardClient)
         self.viewClient.mainloop()
