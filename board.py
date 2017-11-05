@@ -72,6 +72,7 @@ class chessBoard:
     def getPiece(self,coordHorizontal, coordVert):
         return self.boardArray[coordHorizontal][coordVert]
 
+
     def PRINTBOARD(self):
         for i in range(8):
             print("")
