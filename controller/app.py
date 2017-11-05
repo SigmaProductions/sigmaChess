@@ -1,6 +1,7 @@
 from board import chessBoard
 from view.boardwindow import BoardWindow
 from controller.events import EventHandler
+from controller.networking.multiplayer import ConnectionHandler
 from tkinter import *
 
 class SigmaChess:
@@ -11,11 +12,16 @@ class SigmaChess:
         self.boardClient = chessBoard()
         #view client handles drawing chessboard and pieces
         self.viewClient = BoardWindow(root)
+        # connection handler makes chess playable in multiplayer
+        self.multiplayerClient = ConnectionHandler()
         #event handler handles event performed on windows
-        self.eventsClient = EventHandler(self.boardClient, self.viewClient)
+        self.eventsClient = EventHandler(self.boardClient, self.viewClient,self.multiplayerClient)
+
 
         #this binds functions in event handler to actions performed on window
         self.bindEvents()
+
+        self.multiplayerClient.goOnline(self.eventsClient.networkMove)
 
         #draw window and enter mainloop
         self.viewClient.drawBoard(self.boardClient)
