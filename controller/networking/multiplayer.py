@@ -51,6 +51,7 @@ class ConnectionHandler:
                     moveSerial = connection.recv(1024)
                 except:
                     #if it doesnt go back to connecting
+                    print("exception on receinve")
                     break
                 move = pickle.loads(moveSerial)
                 moveCallback(move)

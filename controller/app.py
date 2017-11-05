@@ -12,10 +12,11 @@ class SigmaChess:
         self.boardClient = chessBoard()
         #view client handles drawing chessboard and pieces
         self.viewClient = BoardWindow(root)
+        # connection handler makes chess playable in multiplayer
+        self.multiplayerClient = ConnectionHandler()
         #event handler handles event performed on windows
-        self.eventsClient = EventHandler(self.boardClient, self.viewClient)
-        #connection handler makes chess playable in multiplayer
-        self.multiplayerClient= ConnectionHandler()
+        self.eventsClient = EventHandler(self.boardClient, self.viewClient,self.multiplayerClient)
+
 
         #this binds functions in event handler to actions performed on window
         self.bindEvents()
