@@ -107,3 +107,44 @@ class chessBoard:
             print("White victory!")
         if whiteExist != True:
             print("Black victory!")
+
+
+    def isWhiteChecked(self):
+        for i in range(8):
+            for j in range(8):
+                if (type(self.boardArray[i][j]) == pieceKing) and (self.boardArray[i][j].faction == factionColor.FACTION_WHITE):
+                    xKing=i;
+                    yKing=j;
+        for i in range(8):
+            for j in range(8):
+                if self.boardArray[i][j]==None:
+                    continue
+                if self.boardArray[i][j].faction == factionColor.FACTION_WHITE:
+                    continue
+                if self.boardArray[i][j].faction == factionColor.FACTION_BLACK:
+                    piece=self.getPiece(i,j)
+                    if self.movePiece(piece,xKing,yKing) == True:
+                        return True
+                    else:
+                        continue
+        return False;
+
+    def isBlackChecked(self):
+        for i in range(8):
+            for j in range(8):
+                if (type(self.boardArray[i][j]) == pieceKing) and (self.boardArray[i][j].faction == factionColor.FACTION_BLACK):
+                    xKing=i;
+                    yKing=j;
+        for i in range(8):
+            for j in range(8):
+                if self.boardArray[i][j]==None:
+                    continue
+                if self.boardArray[i][j].faction == factionColor.FACTION_BLACK:
+                    continue
+                if self.boardArray[i][j].faction == factionColor.FACTION_WHITE:
+                    piece=self.getPiece(i,j)
+                    if self.movePiece(piece,xKing,yKing) == True:
+                        return True
+                    else:
+                        continue
+        return False;
