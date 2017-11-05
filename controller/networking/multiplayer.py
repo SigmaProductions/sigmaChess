@@ -22,6 +22,7 @@ class ConnectionHandler:
         packetSerial= pickle.dumps(packet)
 
         self.transmitterThread = threading.Thread(target=self.__SendData, args=[packetSerial])
+        self.transmitterThread.daemon=True
         self.transmitterThread.start()
 
     def goOnline(self,moveCallback, address):
@@ -41,7 +42,8 @@ class ConnectionHandler:
         self.online = True
 
         #start listening on separate thread
-        self.receiverThread = threading.Thread(target=self.__Await, args= [moveCallback])
+        self.receiverThread = threading.Thread(target=self.__Await, args=[moveCallback])
+        self.receiverThread.daemon= True
         self.receiverThread.start()
 
     def goOffline(self):
