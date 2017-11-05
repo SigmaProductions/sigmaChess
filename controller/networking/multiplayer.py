@@ -17,11 +17,12 @@ class ConnectionHandler:
     def SendMove(self, pieceToMove, targetCoords):
         if not self.online:
             return False
-
+        print("moved")
         packet= movePacket((pieceToMove.x,pieceToMove.y), targetCoords)
         packetSerial= pickle.dumps(packet)
 
         self.transmitterThread = threading.Thread(target=self.__SendData, args=[packetSerial])
+        self.transmitterThread.daemon=True
         self.transmitterThread.start()
 
     def goOnline(self,moveCallback, address):
@@ -41,7 +42,8 @@ class ConnectionHandler:
         self.online = True
 
         #start listening on separate thread
-        self.receiverThread = threading.Thread(target=self.__Await, args= [moveCallback])
+        self.receiverThread = threading.Thread(target=self.__Await, args=[moveCallback])
+        self.receiverThread.daemon= True
         self.receiverThread.start()
 
     def goOffline(self):
@@ -70,6 +72,7 @@ class ConnectionHandler:
 
     def __SendData(self,data):
         try:
+            print("data sent")
             self.transmitter.sendall(data)
         except(TimeoutError):
             self.goOffline()
