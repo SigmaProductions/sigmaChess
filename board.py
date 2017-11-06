@@ -1,9 +1,11 @@
 from pieces import *
+import os.path
 
 class chessBoard:
 
 
     def __init__(self):
+        self.Path = os.path.dirname(os.path.abspath(__file__))
         self.boardArray = [[]]
         self.boardArray = self.__spawnPieces()
         self.whoMoved = factionColor.FACTION_BLACK
@@ -18,7 +20,7 @@ class chessBoard:
 
     def __spawnPieces(self):
         boardArray = self.__createEmptyArray()
-        boardtemplate = open(r"C:\Users\Przrg\Desktop\SIGMAchess\sigmaChess\boardtemplate.txt", "r" )
+        boardtemplate = open( self.Path+ "\\boardtemplate.txt", "r" )
         for y in range(8):
             line = boardtemplate.readline()
             for x in range(8):
