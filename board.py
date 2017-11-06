@@ -61,19 +61,19 @@ class chessBoard:
         ##check if it can move
 
         isAttack = pieceToMove.checkAttack(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isAttack == True and self.whoMoved != factionColor.FACTION_WHITE and pieceToMove.faction == factionColor.FACTION_WHITE:
+        if isAttack == True and self.whoMoved != factionColor.FACTION_WHITE and pieceToMove.faction != self.whoMoved:
             self.__move(pieceToMove, xNew, yNew)
             return True
-        elif isAttack == True and self.whoMoved != factionColor.FACTION_BLACK and pieceToMove.faction == factionColor.FACTION_BLACK:
+        elif isAttack == True and self.whoMoved != factionColor.FACTION_BLACK and pieceToMove.faction != self.whoMoved:
             self.__move(pieceToMove, xNew, yNew)
             return True
 
         ##check if it can attack
         isLegal = pieceToMove.checkMove(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isLegal == True and self.whoMoved != factionColor.FACTION_WHITE and pieceToMove.faction == factionColor.FACTION_WHITE:
+        if isLegal == True and self.whoMoved != factionColor.FACTION_WHITE and pieceToMove.faction != self.whoMoved:
             self.__move(pieceToMove, xNew, yNew)
             return True
-        elif isLegal == True and self.whoMoved != factionColor.FACTION_BLACK and pieceToMove.faction == factionColor.FACTION_BLACK:
+        elif isLegal == True and self.whoMoved != factionColor.FACTION_BLACK and pieceToMove.faction != self.whoMoved:
             self.__move(pieceToMove, xNew, yNew)
             return True
 
