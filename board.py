@@ -1,10 +1,12 @@
 from pieces import *
 
 class chessBoard:
-    boardArray = [[]]
+
 
     def __init__(self):
+        self.boardArray = [[]]
         self.boardArray = self.__spawnPieces()
+        self.whoMoved = factionColor.FACTION_BLACK
 
     def __createEmptyArray(self):
         hArray = []
@@ -60,15 +62,17 @@ class chessBoard:
         ##check if it can move
 
         isAttack = pieceToMove.checkAttack(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isAttack == True:
+        if isAttack == True and pieceToMove.faction != self.whoMoved:
             self.__move(pieceToMove, xNew, yNew)
             return True
 
+
         ##check if it can attack
         isLegal = pieceToMove.checkMove(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isLegal == True:
+        if isLegal == True and pieceToMove.faction != self.whoMoved:
             self.__move(pieceToMove, xNew, yNew)
             return True
+
 
         #cant do neither
         return False
@@ -83,9 +87,12 @@ class chessBoard:
         pieceToMove.y=yNew
 
         self.boardArray[xNew][yNew] = pieceToMove
+        self.whoMoved = pieceToMove.faction
         self.boardArray[xCurrent][yCurrent] = None
         if (type(self.boardArray[xNew][yNew]) == piecePawn):
             self.pawnPromotion(xNew, yNew)
+
+
 
     def pawnPromotion(self, xNew, yNew):
         if yNew == 7:
