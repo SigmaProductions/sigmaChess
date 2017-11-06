@@ -1,5 +1,5 @@
 from pieces import *
-
+import os.path
 class chessBoard:
     boardArray = [[]]
 
@@ -16,7 +16,8 @@ class chessBoard:
 
     def __spawnPieces(self):
         boardArray = self.__createEmptyArray()
-        boardtemplate = open(r"C:\Users\Przrg\Desktop\SIGMAchess\sigmaChess\boardtemplate.txt", "r" )
+
+        boardtemplate = open(os.path.dirname(os.path.abspath(__file__))+"\\boardtemplate.txt", "r" )
         for y in range(8):
             line = boardtemplate.readline()
             for x in range(8):
