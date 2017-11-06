@@ -2,8 +2,7 @@ from pieces import *
 
 class chessBoard:
     boardArray = [[]]
-    blackMoved = 1
-    whiteMoved = 0
+    whoMoved = factionColor.FACTION_BLACK
 
     def __init__(self):
         self.boardArray = self.__spawnPieces()
@@ -62,19 +61,19 @@ class chessBoard:
         ##check if it can move
 
         isAttack = pieceToMove.checkAttack(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isAttack == True and self.whiteMoved != 1 and pieceToMove.faction == factionColor.FACTION_WHITE:
+        if isAttack == True and self.whoMoved != factionColor.FACTION_WHITE and pieceToMove.faction == factionColor.FACTION_WHITE:
             self.__move(pieceToMove, xNew, yNew)
             return True
-        elif isAttack == True and self.blackMoved != 1 and pieceToMove.faction == factionColor.FACTION_BLACK:
+        elif isAttack == True and self.whoMoved != factionColor.FACTION_BLACK and pieceToMove.faction == factionColor.FACTION_BLACK:
             self.__move(pieceToMove, xNew, yNew)
             return True
 
         ##check if it can attack
         isLegal = pieceToMove.checkMove(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isLegal == True and self.whiteMoved != 1 and pieceToMove.faction == factionColor.FACTION_WHITE:
+        if isLegal == True and self.whoMoved != factionColor.FACTION_WHITE and pieceToMove.faction == factionColor.FACTION_WHITE:
             self.__move(pieceToMove, xNew, yNew)
             return True
-        elif isLegal == True and self.blackMoved != 1 and pieceToMove.faction == factionColor.FACTION_BLACK:
+        elif isLegal == True and self.whoMoved != factionColor.FACTION_BLACK and pieceToMove.faction == factionColor.FACTION_BLACK:
             self.__move(pieceToMove, xNew, yNew)
             return True
 
@@ -92,11 +91,9 @@ class chessBoard:
 
         self.boardArray[xNew][yNew] = pieceToMove
         if self.boardArray[xNew][yNew].faction == factionColor.FACTION_WHITE:
-            self.whiteMoved = 1
-            self.blackMoved = 0
+            self.whoMoved = factionColor.FACTION_WHITE
         elif self.boardArray[xNew][yNew].faction == factionColor.FACTION_BLACK:
-            self.whiteMoved = 0
-            self.blackMoved = 1
+            self.whoMoved = factionColor.FACTION_BLACK
         self.boardArray[xCurrent][yCurrent] = None
         if (type(self.boardArray[xNew][yNew]) == piecePawn):
             self.pawnPromotion(xNew, yNew)
