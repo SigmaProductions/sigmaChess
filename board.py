@@ -1,10 +1,13 @@
 from pieces import *
+import os.path
 
 class chessBoard:
-    boardArray = [[]]
+
 
     def __init__(self):
+        self.boardArray = [[]]
         self.boardArray = self.__spawnPieces()
+        self.whoMoved = factionColor.FACTION_BLACK
 
     def __createEmptyArray(self):
         hArray = []
@@ -15,8 +18,9 @@ class chessBoard:
         return hArray
 
     def __spawnPieces(self):
+        Path = os.path.dirname(os.path.abspath(__file__))
         boardArray = self.__createEmptyArray()
-        boardtemplate = open(r"C:\Projekty\SigmaChess\boardtemplate.txt", "r" )
+        boardtemplate = open(Path+ "\\boardtemplate.txt", "r")
         for y in range(8):
             line = boardtemplate.readline()
             for x in range(8):
@@ -58,16 +62,19 @@ class chessBoard:
     def movePiece(self, pieceToMove, xNew, yNew):
         """this method  performs both attack and move"""
         ##check if it can move
+
         isAttack = pieceToMove.checkAttack(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isAttack == True:
+        if isAttack == True and pieceToMove.faction != self.whoMoved:
             self.__move(pieceToMove, xNew, yNew)
             return True
 
+
         ##check if it can attack
         isLegal = pieceToMove.checkMove(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
-        if isLegal == True:
+        if isLegal == True and pieceToMove.faction != self.whoMoved:
             self.__move(pieceToMove, xNew, yNew)
             return True
+
 
         #cant do neither
         return False
@@ -82,8 +89,18 @@ class chessBoard:
         pieceToMove.y=yNew
 
         self.boardArray[xNew][yNew] = pieceToMove
+        self.whoMoved = pieceToMove.faction
         self.boardArray[xCurrent][yCurrent] = None
+        if (type(self.boardArray[xNew][yNew]) == piecePawn):
+            self.pawnPromotion(xNew, yNew)
 
+
+
+    def pawnPromotion(self, xNew, yNew):
+        if yNew == 7:
+            self.boardArray[xNew][yNew] = pieceQueen(xNew, yNew, factionColor.FACTION_WHITE)
+        elif yNew == 0:
+            self.boardArray[xNew][yNew] = pieceQueen(xNew, yNew, factionColor.FACTION_BLACK)
 
     def getPiece(self,coordHorizontal, coordVert):
         return self.boardArray[coordHorizontal][coordVert]
