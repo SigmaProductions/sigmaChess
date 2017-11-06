@@ -16,7 +16,7 @@ class chessBoard:
 
     def __spawnPieces(self):
         boardArray = self.__createEmptyArray()
-        boardtemplate = open(r"C:\Users\Przrg\Desktop\SIGMAchess\sigmaChess\boardtemplate.txt", "r" )
+        boardtemplate = open(r"C:\Projekty\SigmaChess\boardtemplate.txt", "r" )
         for y in range(8):
             line = boardtemplate.readline()
             for x in range(8):
@@ -124,43 +124,34 @@ class chessBoard:
         if whiteExist != True:
             print("Black victory!")
 
-
-    def isWhiteChecked(self):
-        for i in range(8):
-            for j in range(8):
-                if (type(self.boardArray[i][j]) == pieceKing) and (self.boardArray[i][j].faction == factionColor.FACTION_WHITE):
-                    xKing=i;
-                    yKing=j;
+    #function checks if square (x,y) is attacked by faction.
+    def isAttacked(self,x,y):
+        square=self.boardArray[x][y]
         for i in range(8):
             for j in range(8):
                 if self.boardArray[i][j]==None:
+                    continue;
+                if self.boardArray[i][j].faction == square.faction:
                     continue
-                if self.boardArray[i][j].faction == factionColor.FACTION_WHITE:
-                    continue
-                if self.boardArray[i][j].faction == factionColor.FACTION_BLACK:
-                    piece=self.getPiece(i,j)
-                    if self.movePiece(piece,xKing,yKing) == True:
-                        return True
+                if self.boardArray[i][j].faction is not square.faction:
+                    if self.getPiece(i,j).checkAttack(self.boardArray,x,y) == True:
+                        return True;
                     else:
-                        continue
+                        continue;
         return False;
 
-    def isBlackChecked(self):
+    #function denermines the position of the king belonging to a faction
+    def getKing(self,faction):
         for i in range(8):
             for j in range(8):
-                if (type(self.boardArray[i][j]) == pieceKing) and (self.boardArray[i][j].faction == factionColor.FACTION_BLACK):
-                    xKing=i;
-                    yKing=j;
-        for i in range(8):
-            for j in range(8):
-                if self.boardArray[i][j]==None:
-                    continue
-                if self.boardArray[i][j].faction == factionColor.FACTION_BLACK:
-                    continue
-                if self.boardArray[i][j].faction == factionColor.FACTION_WHITE:
-                    piece=self.getPiece(i,j)
-                    if self.movePiece(piece,xKing,yKing) == True:
-                        return True
-                    else:
-                        continue
-        return False;
+                king=self.getPiece(i,j)
+                if ((type(king) == pieceKing) and (king.faction == faction)):
+                    return [i,j]
+
+    #function checks whether a king from a faction is under attack
+    def isChecked(self,faction):
+        king=self.getKing(faction);
+        if self.isAttacked(king[0],king[1])== True:
+            return True;
+        else:
+            return False;
