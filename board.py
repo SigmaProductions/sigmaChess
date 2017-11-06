@@ -65,18 +65,14 @@ class chessBoard:
         if isAttack == True and pieceToMove.faction != self.whoMoved:
             self.__move(pieceToMove, xNew, yNew)
             return True
-        elif isAttack == True and pieceToMove.faction != self.whoMoved:
-            self.__move(pieceToMove, xNew, yNew)
-            return True
+
 
         ##check if it can attack
         isLegal = pieceToMove.checkMove(self.boardArray,coordHorizontal=xNew, coordVert=yNew)
         if isLegal == True and pieceToMove.faction != self.whoMoved:
             self.__move(pieceToMove, xNew, yNew)
             return True
-        elif isLegal == True and pieceToMove.faction != self.whoMoved:
-            self.__move(pieceToMove, xNew, yNew)
-            return True
+
 
         #cant do neither
         return False
@@ -91,10 +87,7 @@ class chessBoard:
         pieceToMove.y=yNew
 
         self.boardArray[xNew][yNew] = pieceToMove
-        if self.boardArray[xNew][yNew].faction == factionColor.FACTION_WHITE:
-            self.whoMoved = factionColor.FACTION_WHITE
-        elif self.boardArray[xNew][yNew].faction == factionColor.FACTION_BLACK:
-            self.whoMoved = factionColor.FACTION_BLACK
+        self.whoMoved = pieceToMove.faction
         self.boardArray[xCurrent][yCurrent] = None
         if (type(self.boardArray[xNew][yNew]) == piecePawn):
             self.pawnPromotion(xNew, yNew)
