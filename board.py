@@ -142,7 +142,7 @@ class chessBoard:
             print("Black victory!")
 
     #function checks if square (x,y) is attacked by faction.
-    def isAttacked(self,x,y):
+    def tileIsAttacked(self,x,y):
         square=self.boardArray[x][y]
         for i in range(8):
             for j in range(8):
