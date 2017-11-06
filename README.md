@@ -48,7 +48,7 @@ For multiplayer development stay on branch multiplayer and remember to checkout 
 
 ## License
 
-This project is licensed under the DON'T BE A DICK LICENSE - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the DON'T BE A DICK LICENSE - see the [LICENSE.md](https://github.com/SigmaProductions/sigmaChess/blob/master/LICENCE.md) file for details
 
 ## Acknowledgments
 * **Michał Maroń** for *27 glorious lines of copied code*
