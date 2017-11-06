@@ -41,8 +41,8 @@ go to github and open pull request
 For multiplayer development stay on branch multiplayer and remember to checkout on git
 
 ## Authors
-* **Daniel Kluska** - *chess logic* - [soon ezio97](https://github.com/Altair97)
-* **Przemysław Regulski** - *chess logic* - [ekierkad](https://github.com/Altair97)
+* **Przemysław Regulski** - *chess logic* - [soon ezio97](https://github.com/Altair97)
+* **Daniel Kluska** - *chess logic* - [ekierkad](https://github.com/ekierkad)
 * **Bartosz Sendek** - *code architecture,multiplayer, GUI* - [senbar](https://github.com/senbar)
 * **Szymon Ciombor** - *chess logic* - [szymekc](https://github.com/szymekc)
 
