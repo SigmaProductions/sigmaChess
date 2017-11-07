@@ -141,16 +141,20 @@ class chessBoard:
         if whiteExist != True:
             print("Black victory!")
 
-    #function checks if square (x,y) is attacked by faction.
-    def tileIsAttacked(self,x,y):
-        square=self.boardArray[x][y]
+    #function checks if square (x,y) belonging to a faction is attacked
+    def tileIsAttacked(self,x,y,S_faction):
+        square=self.boardArray[x][y];
+        if square is None:
+            fraction=S_faction;
+        else:
+            fraction=square.faction;
         for i in range(8):
             for j in range(8):
                 if self.boardArray[i][j]==None:
                     continue;
-                if self.boardArray[i][j].faction == square.faction:
-                    continue
-                if self.boardArray[i][j].faction is not square.faction:
+                if self.boardArray[i][j].faction == fraction:
+                    continue;
+                if self.boardArray[i][j].faction is not fraction:
                     if self.getPiece(i,j).checkAttack(self.boardArray,x,y) == True:
                         return True;
                     else:
