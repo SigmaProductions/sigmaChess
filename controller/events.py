@@ -1,3 +1,4 @@
+import pieces
 class EventHandler:
 
     def __init__(self,hboardClient, hviewClient, hnetworkClient):
@@ -10,6 +11,10 @@ class EventHandler:
     def __translateCoordsToTiles(self, coordX, coordY):
         """when clicked on window event gives values in pixels, in order to perform moves
            we must first convert them to coords on chess board"""
+        if self.boardClient.whoMoved == pieces.factionColor.FACTION_WHITE:
+            translatedX = int((64 * 8 - (coordX)) / 64)
+            translatedY = int(coordY / 64)
+            return (translatedX, translatedY)
         translatedX = int((coordX) / 64)
         translatedY = int((64 * 8 - (coordY)) / 64)
 

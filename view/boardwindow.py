@@ -24,16 +24,21 @@ class BoardWindow(Frame):
 
         for i in range(8):
             for j in range(8):
+                iRender = i
+                jRender = j
+                if chessBoard.whoMoved == pieces.factionColor.FACTION_WHITE:
+                    iRender = 7 - i
+                    jRender = 7 - j
                 tilePiece= chessBoard.getPiece(i,j)
 
                 if(tilePiece== None):
-                    self.piecesCanvas.create_image(self.__translateBoardCoords(i, j), image=self.piecesImages["tile"])
+                    self.piecesCanvas.create_image(self.__translateBoardCoords(iRender, jRender), image=self.piecesImages["tile"])
                     continue
                 else:
                     if(tilePiece.faction== pieces.factionColor.FACTION_WHITE):
-                        self.piecesCanvas.create_image(self.__translateBoardCoords(i, j), image=self.piecesImages[tilePiece.name])
+                        self.piecesCanvas.create_image(self.__translateBoardCoords(iRender, jRender), image=self.piecesImages[tilePiece.name])
                     elif(tilePiece.faction== pieces.factionColor.FACTION_BLACK):
-                        self.piecesCanvas.create_image(self.__translateBoardCoords(i, j),image=self.piecesImages[tilePiece.name + "Black"])
+                        self.piecesCanvas.create_image(self.__translateBoardCoords(iRender, jRender),image=self.piecesImages[tilePiece.name + "Black"])
 
 
 
