@@ -3,10 +3,10 @@ from pymunk import *
 class Physics:
     def __init__(self):
         self.space=Space()
-        self.space.gravity= 0.0,-900.0
+        self.space.gravity= 0.0,-9000.0
 
-        shape= Segment(self.space.static_body,(0,0),(10,0),1.0)
-        shape.friction=1.0
+        shape= Segment(self.space.static_body,(-100,-0.1),(500,-0.1),0.0)
+        shape.friction=100.0
         self.space.add(shape)
 
 
@@ -23,8 +23,8 @@ class Physics:
 
                     self.figures[x][y]=body
 
-                    shape= Circle(body,1)
-                    shape.collision_type=2
+                    shape= Circle(body,0.5)
+                    shape.collision_type=1
                     self.space.add(body,shape)
                     
 
