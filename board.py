@@ -1,5 +1,6 @@
 from pieces import *
 import os.path
+import winsound
 
 class chessBoard:
 
@@ -8,6 +9,8 @@ class chessBoard:
         self.boardArray = [[]]
         self.boardArray = self.__spawnPieces()
         self.whoMoved = factionColor.FACTION_BLACK
+        Path = os.path.dirname(os.path.abspath(__file__))
+        winsound.PlaySound(Path + "\\music.wav", winsound.SND_ASYNC)
 
     def __createEmptyArray(self):
         hArray = []
@@ -20,7 +23,7 @@ class chessBoard:
     def __spawnPieces(self):
         Path = os.path.dirname(os.path.abspath(__file__))
         boardArray = self.__createEmptyArray()
-        boardtemplate = open(Path+ "\\boardtemplate.txt", "r")
+        boardtemplate = open(Path + "\\boardtemplate.txt", "r")
         for y in range(8):
             line = boardtemplate.readline()
             for x in range(8):
