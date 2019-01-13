@@ -1,7 +1,7 @@
 from tkinter import *
 from view.boardimages import *
 import pieces
-
+import physics
 
 class BoardWindow(Frame):
 
@@ -49,7 +49,16 @@ class BoardWindow(Frame):
 
     def __translateBoardCoords(self,boardPositionX, boardPositionY):
         """translates integer position on the chess board to pixel position in canvas"""
-        return (boardPositionX*64 + 32,(64*8)- (boardPositionY*64)-32)
+        figure=physics.PhysicsSingleton.figures[boardPositionX][boardPositionY]
+        if(figure is None):
+            x=1
+            y=1
+        else:
+            x=figure.position[0]/64*8
+
+            y=figure.position[1]/64*8
+        return (x*boardPositionX*64 + 32,(64*8)- (
+            y*boardPositionY*64)-32)
 
 
 

@@ -1,6 +1,7 @@
 from pieces import *
 import os.path
 import winsound
+import physics
 
 class chessBoard:
 
@@ -79,6 +80,7 @@ class chessBoard:
             return True
 
 
+
         #cant do neither
         return False
 
@@ -90,6 +92,9 @@ class chessBoard:
         #change coords inside piece object
         pieceToMove.x=xNew
         pieceToMove.y=yNew
+        
+        #this should be observable but w/e
+        physics.PhysicsSingleton.BoardChanged()
 
         self.boardArray[xNew][yNew] = pieceToMove
         self.whoMoved = pieceToMove.faction
