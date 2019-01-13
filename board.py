@@ -13,7 +13,7 @@ class chessBoard:
         hArray = []
         for i in range(8):
             hArray.append([])
-            for k in range(8):
+            for _ in range(8):
                 hArray[i].append(None)
         return hArray
 
@@ -143,23 +143,23 @@ class chessBoard:
 
     #function checks if square (x,y) belonging to a faction is attacked
     def tileIsAttacked(self,x,y,S_faction):
-        square=self.boardArray[x][y];
+        square=self.boardArray[x][y]
         if square is None:
-            fraction=S_faction;
+            fraction=S_faction
         else:
-            fraction=square.faction;
+            fraction=square.faction
         for i in range(8):
             for j in range(8):
                 if self.boardArray[i][j]==None:
-                    continue;
+                    continue
                 if self.boardArray[i][j].faction == fraction:
-                    continue;
+                    continue
                 if self.boardArray[i][j].faction is not fraction:
                     if self.getPiece(i,j).checkAttack(self.boardArray,x,y) == True:
-                        return True;
+                        return True
                     else:
-                        continue;
-        return False;
+                        continue
+        return False
 
     #function denermines the position of the king belonging to a faction
     def getKing(self,faction):
@@ -171,8 +171,9 @@ class chessBoard:
 
     #function checks whether a king from a faction is under attack
     def isChecked(self,faction):
-        king=self.getKing(faction);
+        king=self.getKing(faction)
         if self.isAttacked(king[0],king[1])== True:
-            return True;
+            return True
         else:
-            return False;
+            return False
+
