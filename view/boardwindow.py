@@ -24,6 +24,11 @@ class BoardWindow(Frame):
 
         for i in range(8):
             for j in range(8):
+                self.piecesCanvas.create_image(self.__translateBoardCoords(i, j), image=self.piecesImages["tile"])
+                
+
+        for i in range(8):
+            for j in range(8):
                 iRender = i
                 jRender = j
                 if chessBoard.whoMoved == pieces.factionColor.FACTION_WHITE:
@@ -31,10 +36,7 @@ class BoardWindow(Frame):
                     jRender = 7 - j
                 tilePiece= chessBoard.getPiece(i,j)
 
-                if(tilePiece== None):
-                    self.piecesCanvas.create_image(self.__translateBoardCoords(iRender, jRender), image=self.piecesImages["tile"])
-                    continue
-                else:
+                if(tilePiece is not None):
                     if(tilePiece.faction== pieces.factionColor.FACTION_WHITE):
                         self.piecesCanvas.create_image(self.__translateBoardCoords(iRender, jRender), image=self.piecesImages[tilePiece.name])
                     elif(tilePiece.faction== pieces.factionColor.FACTION_BLACK):
@@ -51,14 +53,14 @@ class BoardWindow(Frame):
         """translates integer position on the chess board to pixel position in canvas"""
         figure=physics.PhysicsSingleton.figures[boardPositionX][boardPositionY]
         if(figure is None):
-            x=1
-            y=1
+            x=boardPositionX
+            y=boardPositionY
         else:
-            x=figure.position[0]/64*8
+            x=figure.position[0]
 
-            y=figure.position[1]/64*8
-        return (x*boardPositionX*64 + 32,(64*8)- (
-            y*boardPositionY*64)-32)
+            y=figure.position[1]
+        return (x*64 + 32,(64*8)- (
+            y*64)-32)
 
 
 
