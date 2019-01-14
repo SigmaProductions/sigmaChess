@@ -14,6 +14,10 @@ class Physics:
         
 
     def initFigures(self):
+        #first remove every body from space, TODO change position dont recreate whole space each time
+        for body in self.space.bodies:
+            self.space.remove(body)
+        
         for x in range(8):
             for y in range(8):
                 field= self.board.getPiece(x,y)
