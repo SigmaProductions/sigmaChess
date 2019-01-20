@@ -93,12 +93,14 @@ class chessBoard:
         pieceToMove.x=xNew
         pieceToMove.y=yNew
         
-        #this should be observable but w/e
-        physics.PhysicsSingleton.BoardChanged()
+        
 
         self.boardArray[xNew][yNew] = pieceToMove
         self.whoMoved = pieceToMove.faction
         self.boardArray[xCurrent][yCurrent] = None
+        
+        #this should be observable but w/e
+        physics.PhysicsSingleton.BoardChanged()
         if (type(self.boardArray[xNew][yNew]) == piecePawn):
             self.pawnPromotion(xNew, yNew)
 

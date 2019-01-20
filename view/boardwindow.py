@@ -22,7 +22,7 @@ class BoardWindow(Frame):
 
         for i in range(8):
             for j in range(8):
-                self.piecesCanvas.create_image(self.__translateBoardCoords(i, j, chessBoard.whoMoved), image=self.piecesImages["tile"])
+                self.piecesCanvas.create_image(self.__translateBoardCoords(i, j, None), image=self.piecesImages["tile"])
                 
 
         for i in range(8):
@@ -45,7 +45,7 @@ class BoardWindow(Frame):
     def __translateBoardCoords(self,boardPositionX, boardPositionY, whoMoved):
         """translates integer position on the chess board to pixel position in canvas"""
         figure=physics.PhysicsSingleton.figures[boardPositionX][boardPositionY]
-        if(figure is None):
+        if(whoMoved is None):
             x=boardPositionX
             y=boardPositionY
         else:
