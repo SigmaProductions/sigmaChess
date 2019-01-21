@@ -3,15 +3,16 @@ from view.appwindow import AppWindow
 from controller.events import EventHandler
 from controller.networking.multiplayer import ConnectionHandler
 from tkinter import *
-
+import physics
 class SigmaChess:
     def __init__(self):
-        root = Tk()
+        self.root = Tk()
 
         #board client handles logic of chess board moves and attacks
         self.boardClient = chessBoard()
+        physics.PhysicsSingleton.BindToBoard(self.boardClient)
         #view client handles drawing everything
-        self.viewClient= AppWindow(root,self.boardClient)
+        self.viewClient= AppWindow(self.root,self.boardClient)
         self.viewClient.pack()
 
         # connection handler makes chess playable in multiplayer
@@ -23,11 +24,16 @@ class SigmaChess:
         #this binds functions in event handler to actions performed on window
         self.bindEvents()
 
-        #commented out for debugging
+        self.mainLoop()
 
-
-
-        root.mainloop()
+    def mainLoop(self):
+        while(True):
+            physics.PhysicsSingleton.run()
+            self.viewClient.viewBoardClient.drawBoard(self.boardClient)     
+            self.root.update_idletasks()
+            self.root.update()
+ 
+        
 
     def bindEvents(self):
         """bind events to event handler; here go every event handle"""
