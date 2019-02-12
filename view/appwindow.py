@@ -1,8 +1,8 @@
-from tkinter import *
 from view.boardwindow import BoardWindow
+import tkinter as tk
 from view.networkwindow import NetworkWindow
 
-class AppWindow(Frame):
+class AppWindow(tk.Frame):
     def __init__(self,master, boardClient):
         super().__init__(master)
 
@@ -10,7 +10,7 @@ class AppWindow(Frame):
         self.viewBoardClient = BoardWindow(self)
         self.viewNetworkClient = NetworkWindow(self)
 
-        self.viewNetworkClient.pack(side=LEFT)
-        self.viewBoardClient.pack(side=LEFT)
+        self.viewNetworkClient.pack(side=tk.LEFT)
+        self.viewBoardClient.pack(side=tk.LEFT)
         self.viewBoardClient.drawBoard(self.chessBoard)
 
