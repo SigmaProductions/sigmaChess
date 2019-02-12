@@ -3,33 +3,37 @@ from pymunk import *
 class Physics:
     def __init__(self):
         self.space=Space()
-        self.space.gravity= 0.0,-9000.0
+        self.space.gravity= 0.0,-90900.0
 
-        shape= Segment(self.space.static_body,(-100,-0.1),(500,-0.1),0.0)
-        shape.friction=100.0
-        self.space.add(shape)
+        self.constructEnvironment()
 
         for _ in range(32):
             body= Body(10,10)
             body.position=0,0
-
-            shape= Circle(body,0.5)
+            shape= Poly(body,[(0,0),(0,1),(1,1),(1,0)])
             shape.collision_type=1
             self.space.add(body,shape)
                     
 
         self.figures= [[None for s in range(8)] for p in range(8)]
         
+    def constructEnvironment(self):
+        #constructing box inside which whole chessboard is
+
+        box=list()
+        box.append(Segment(self.space.static_body,(0,8),(0,0),0.0))
+        box.append(Segment(self.space.static_body,(8,8),(0,8),0.0))
+        box.append(Segment(self.space.static_body,(8,8),(8,0),0.0))
+        box.append(Segment(self.space.static_body,(0,0),(8,0),0.0))
+        for wall in box:
+            wall.friction=0.0
+            self.space.add(wall)
 
     def initFigures(self):
         #first remove every body from space, TODO change position dont recreate whole space each time
         #for figure in self.figures:
         #    print("removing body")
         #    self.space.remove(figure)
-        i=0
-        for body in self.space.bodies:
-            print("body exists ", i)
-            i+=1
 
         i=0
         for x in range(8):
@@ -40,9 +44,6 @@ class Physics:
                     body.position= x,y
                     self.figures[x][y]=body
                     i+=1
-                
-                    #if(self.figures[x][y] is not None):
-                    #    self.space.remove(self.figures[x][y])
                     
                
 
@@ -52,7 +53,7 @@ class Physics:
         self.initFigures()
 
     def run(self):
-        self.space.step(0.0001)
+        self.space.step(0.001)
 
     def BoardChanged(self):
         self.initFigures()

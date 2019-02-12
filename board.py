@@ -11,7 +11,7 @@ class chessBoard:
         self.boardArray = self.__spawnPieces()
         self.whoMoved = factionColor.FACTION_BLACK
         Path = os.path.dirname(os.path.abspath(__file__))
-        winsound.PlaySound(Path + "\\music.wav", winsound.SND_ASYNC)
+        #winsound.PlaySound(Path + "\\music.wav", winsound.SND_ASYNC)
 
     def __createEmptyArray(self):
         hArray = []
