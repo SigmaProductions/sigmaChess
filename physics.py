@@ -3,7 +3,7 @@ from pymunk import *
 class Physics:
     def __init__(self):
         self.space=Space()
-        self.space.gravity= 0.0,-90900.0
+        self.space.gravity= 0.0,-9000.0
 
         self.constructEnvironment()
 
@@ -30,11 +30,6 @@ class Physics:
             self.space.add(wall)
 
     def initFigures(self):
-        #first remove every body from space, TODO change position dont recreate whole space each time
-        #for figure in self.figures:
-        #    print("removing body")
-        #    self.space.remove(figure)
-
         i=0
         for x in range(8):
             for y in range(8):
@@ -45,15 +40,13 @@ class Physics:
                     self.figures[x][y]=body
                     i+=1
                     
-               
-
 
     def BindToBoard(self, board):
         self.board= board
         self.initFigures()
 
     def run(self):
-        self.space.step(0.001)
+        self.space.step(0.0005)
 
     def BoardChanged(self):
         self.initFigures()
