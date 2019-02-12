@@ -2,6 +2,7 @@ from tkinter import *
 from view.boardimages import *
 import pieces
 import physics
+import pymunk.body
 
 class BoardWindow(Frame):
 
@@ -34,6 +35,14 @@ class BoardWindow(Frame):
                         self.piecesCanvas.create_image(self.__translateBoardCoords(i,j, chessBoard.whoMoved), image=self.piecesImages[tilePiece.name])
                     elif(tilePiece.faction== pieces.factionColor.FACTION_BLACK):
                         self.piecesCanvas.create_image(self.__translateBoardCoords(i,j, chessBoard.whoMoved),image=self.piecesImages[tilePiece.name + "Black"])
+
+
+        for obj in physics.PhysicsSingleton.space.bodies:
+            x=obj.position[0]*32+32 
+            y=(32*8)-(obj.position[1]*32)-32
+            print("position: ", obj.position[0]," ", obj.position[1])
+            
+            self.piecesCanvas.create_rectangle(x,y,x+50,y+50)
 
 
 
