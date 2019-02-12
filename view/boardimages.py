@@ -16,7 +16,7 @@ class BoardGraphicsDict:
         """loads images into dict"""
         pawnImage= PhotoImage(file = self.Path+ "\graphics\pieces\pawn.gif")
         pawnBlackImage = PhotoImage(file=self.Path + "\graphics\pieces\pawnBlack.gif")
-        tileImage = PhotoImage(file = self.Path+"\graphics\\tiles\placeholder.gif")
+        tileImage = PhotoImage(file = self.Path+"\graphics\\tiles\chessboard.png")
         rook = PhotoImage(file = self.Path+"\graphics\\pieces\\rook.gif")
         rookBlack= PhotoImage(file=self.Path + "\graphics\\pieces\\rookBlack.gif")
         bishop= PhotoImage(file=self.Path + "\graphics\\pieces\\bishop.gif")
