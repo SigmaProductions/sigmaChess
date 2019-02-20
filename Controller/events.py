@@ -1,12 +1,22 @@
-import pieces
+from ChessEngine import pieces
+
 class EventHandler:
+#This separate class handles all interactions within game
 
     def __init__(self,hboardClient, hviewClient, hnetworkClient):
         self.boardClient= hboardClient
         self.viewClient= hviewClient
         self.networkClient= hnetworkClient
-        #piece we are currently moving
+
+        #piece we are currently moving (piece that was clicked on and is waiting for position to move)
         self.pieceSuspended=None
+
+        self.bindEvents()
+
+    def bindEvents(self):
+        """bind events to event handler; here goes every event handle"""
+        self.viewClient.viewBoardClient.addBinding("<Button-1>", self.boardClicked)
+        self.viewClient.viewNetworkClient.addConnectBtnBind(self.networkConnect)
 
     def __translateCoordsToTiles(self, coordX, coordY):
         """when clicked on window event gives values in pixels, in order to perform moves
@@ -38,7 +48,7 @@ class EventHandler:
         if(self.pieceSuspended!=None):
             if(self.__movePiece(self.pieceSuspended, chessCoords)):
                 self.pieceSuspended = None
-                self.viewClient.viewBoardClient.drawBoard(self.boardClient)
+                self.viewClient.viewBoardClient.drawBoard(self.boardClient,self.chessBoard)
                 return
 
         self.pieceSuspended = self.boardClient.getPiece(chessCoords[0], chessCoords[1])
@@ -53,11 +63,4 @@ class EventHandler:
         pieceToMove=self.boardClient.getPiece(movePacket.fromCoords[0],movePacket.fromCoords[1])
         self.boardClient.movePiece(pieceToMove,movePacket.toCoords[0],movePacket.toCoords[1])
         self.viewClient.viewBoardClient.drawBoard(self.boardClient)
-
-
-
-
-
-
-
 

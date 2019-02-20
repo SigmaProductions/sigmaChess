@@ -1,7 +1,7 @@
 from tkinter import *
 
-class NetworkWindow(Frame):
-    """window responsible for entering ip address and event calling multiplayer to engage"""
+class NetworkView(Frame):
+    """view responsible for entering ip address and event calling multiplayer to engage"""
     def __init__(self,master):
         super().__init__(master)
         #the callback used for connect button

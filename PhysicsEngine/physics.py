@@ -1,7 +1,9 @@
 from pymunk import *
 
 class Physics:
-    def __init__(self):
+    def __init__(self, board):
+        self.board= board
+
         self.space=Space()
         self.space.gravity= 0.0,-9000.0
 
@@ -10,11 +12,12 @@ class Physics:
         for _ in range(32):
             body= Body(10,10)
             body.position=0,0
-            shape= Poly(body,[(0,0),(0,1),(1,1),(1,0)])
-            shape.collision_type=1
+            shape= Poly(body,[(0,0),(0,1),(1,1),(1,0),(0,0)])
+            shape.elasticity=0.2
+            shape.collision_type=2
             self.space.add(body,shape)
-                    
 
+        
         self.figures= [[None for s in range(8)] for p in range(8)]
         
     def constructEnvironment(self):
@@ -41,16 +44,9 @@ class Physics:
                     i+=1
                     
 
-    def BindToBoard(self, board):
-        self.board= board
-        self.initFigures()
 
-    def run(self):
+    def Step(self):
         self.space.step(0.0005)
 
-    def BoardChanged(self):
+    def MoveCallback(self):
         self.initFigures()
-
-
-
-PhysicsSingleton= Physics()

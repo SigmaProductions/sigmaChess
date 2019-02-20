@@ -1,6 +1,6 @@
 import socket
 import threading
-from controller.networking.move import movePacket
+from Networking.move import movePacket
 import pickle
 class ConnectionHandler:
 
