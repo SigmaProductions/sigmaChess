@@ -8,9 +8,11 @@ class factionColor (Enum):
 class chessPiece:
     name = None
     def __init__(self, hX, hY, faction):
-        self.x = hX
-        self.y = hY
-        self.faction=faction
+        self.x = hX;
+        self.y = hY;
+        self.faction=faction;
+        self.pieceImage = None
+
 
 
 class piecePawn(chessPiece):
