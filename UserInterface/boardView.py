@@ -1,10 +1,10 @@
 from tkinter import *
-from view.boardimages import *
-import pieces
-import physics
+from UserInterface.Resources.boardImagesDict import BoardGraphicsDict
+from ChessEngine import pieces
+from PhysicsEngine import physics
 import pymunk.body
 
-class BoardWindow(Frame):
+class BoardView(Frame):
 
     def __init__(self,master):
         super().__init__(master)
@@ -17,7 +17,7 @@ class BoardWindow(Frame):
                               height=64 * 8)
         self.piecesCanvas.pack()
 
-    def drawBoard(self, chessBoard):
+    def drawBoard(self, physicsClient,chessBoard):
         """this method wipes canvas in the frame and draws it anew"""
         self.piecesCanvas.delete("all")
         self.piecesCanvas.create_image(256,256, image=self.piecesImages["tile"])
@@ -28,9 +28,9 @@ class BoardWindow(Frame):
 
                 if(tilePiece is not None):
                     if(tilePiece.faction== pieces.factionColor.FACTION_WHITE):
-                        self.piecesCanvas.create_image(self.__translateBoardCoords(i,j, chessBoard.whoMoved), image=self.piecesImages[tilePiece.name])
+                        self.piecesCanvas.create_image(self.__translateBoardCoords(physicsClient,i,j, chessBoard.whoMoved), image=self.piecesImages[tilePiece.name])
                     elif(tilePiece.faction== pieces.factionColor.FACTION_BLACK):
-                        self.piecesCanvas.create_image(self.__translateBoardCoords(i,j, chessBoard.whoMoved),image=self.piecesImages[tilePiece.name + "Black"])
+                        self.piecesCanvas.create_image(self.__translateBoardCoords(physicsClient,i,j, chessBoard.whoMoved),image=self.piecesImages[tilePiece.name + "Black"])
 
 
 
@@ -39,9 +39,9 @@ class BoardWindow(Frame):
         self.piecesCanvas.bind(eventName, function)
 
 
-    def __translateBoardCoords(self,boardPositionX, boardPositionY, whoMoved):
+    def __translateBoardCoords(self, physicsClient,boardPositionX, boardPositionY, whoMoved):
         """translates integer position on the chess board to pixel position in canvas"""
-        figure=physics.PhysicsSingleton.figures[boardPositionX][boardPositionY]
+        figure=physicsClient.figures[boardPositionX][boardPositionY]
         if(whoMoved is None):
             x=boardPositionX
             y=boardPositionY
@@ -57,23 +57,3 @@ class BoardWindow(Frame):
 
 
 
-
-############################################################################
-###############################DEBUG########################################
-
-if __name__ == "__main__":
-    from board import chessBoard
-
-    x=chessBoard()
-    root= Tk()
-    app = BoardWindow(root)
-    app.drawBoard(x)
-
-    input("w")
-    p=x.getPiece(0,1)
-    x.movePiece(p,0,2)
-    app.drawBoard(x)
-    root.mainloop()
-
-############################################################################
-############################################################################

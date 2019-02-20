@@ -1,69 +1,69 @@
 from enum import Enum
-import pathing
+from ChessEngine import pathing
 
 class factionColor (Enum):
-    FACTION_WHITE = 1;
-    FACTION_BLACK = 2;
+    FACTION_WHITE = 1
+    FACTION_BLACK = 2
 
 class chessPiece:
     name = None
     def __init__(self, hX, hY, faction):
-        self.x = hX;
-        self.y = hY;
-        self.faction=faction;
+        self.x = hX
+        self.y = hY
+        self.faction=faction
 
 
 class piecePawn(chessPiece):
     name = "pawn"
     def checkAttack(self, boardArray, coordHorizontal, coordVert):
-        square = boardArray[coordHorizontal][coordVert];
+        square = boardArray[coordHorizontal][coordVert]
         if square is None:
-            return False;
+            return False
         if self.faction == factionColor.FACTION_WHITE:
             if coordVert == self.y + 1 and (abs(coordHorizontal - self.x) == 1):
                 if square.faction is not self.faction:
-                    return True;
-                return False;
+                    return True
+                return False
         elif self.faction == factionColor.FACTION_BLACK:
             if coordVert + 1 == self.y  and (abs(coordHorizontal - self.x) == 1):
                 if square.faction is not self.faction:
-                    return True;
-            return False;
+                    return True
+            return False
 
     def checkMove(self, boardArray, coordHorizontal, coordVert):
-        square = boardArray[coordHorizontal][coordVert];
+        square = boardArray[coordHorizontal][coordVert]
         if square is not None:
-            return False;
+            return False
         if self.faction == factionColor.FACTION_WHITE:
             if coordHorizontal == self.x and self.y == 1 and coordVert == self.y + 2:
-                return True;
+                return True
             elif coordHorizontal == self.x and coordVert == self.y + 1:
-                return True;
-            return False;
+                return True
+            return False
         else:
             if coordHorizontal == self.x and self.y == 6 and coordVert == self.y - 2:
-                return True;
+                return True
             if coordHorizontal == self.x and coordVert == self.y - 1:
-                return True;
-            return False;
+                return True
+            return False
 
 class pieceKing(chessPiece):
     name = "king"
 
     def checkAttack(self, boardArray, coordHorizontal, coordVert):
-        square=boardArray[coordHorizontal][coordVert];
+        square=boardArray[coordHorizontal][coordVert]
         if (abs(coordHorizontal - self.x) <= 1) and (abs(coordVert - self.y) <= 1):
             if square is not None and square.faction is not self.faction:
-                return True;
-        return False;
+                return True
+        return False
 
     def checkMove(self, boardArray, coordHorizontal, coordVert):
-        square=boardArray[coordHorizontal][coordVert];
+        square=boardArray[coordHorizontal][coordVert]
         if square is not None:
-            return False;
+            return False
         if (abs(coordHorizontal - self.x) <= 1) and (abs(coordVert - self.y) <= 1):
-            return True;
-        return False;
+            return True
+        return False
 
 class pieceRook(chessPiece):
     name = "rook"

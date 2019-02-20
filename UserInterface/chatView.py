@@ -1,7 +1,7 @@
 from tkinter import *
-from chatContents import *
+from UserInterface.chatContents import Chat
 
-class ChatWindow(Frame):
+class ChatView(Frame):
     def __init__(self,master):
         super().__init__(master)
         self.sendCallback=None
