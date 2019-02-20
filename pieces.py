@@ -11,6 +11,7 @@ class chessPiece:
         self.x = hX;
         self.y = hY;
         self.faction=faction;
+        self.pieceImage = None
 
 
 class piecePawn(chessPiece):

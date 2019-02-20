@@ -1,7 +1,8 @@
 from tkinter import PhotoImage
 from tkinter import Canvas
+from PIL import Image
+from PIL import ImageTk
 import os.path
-
 
 
 class BoardGraphicsDict:
@@ -14,19 +15,19 @@ class BoardGraphicsDict:
 
     def loadImages(self):
         """loads images into dict"""
-        pawnImage= PhotoImage(file = self.Path+ "\graphics\pieces\pawn.gif")
-        pawnBlackImage = PhotoImage(file=self.Path + "\graphics\pieces\pawnBlack.gif")
-        tileImage = PhotoImage(file = self.Path+"\graphics\\tiles\chessboard.png")
-        rook = PhotoImage(file = self.Path+"\graphics\\pieces\\rook.gif")
-        rookBlack= PhotoImage(file=self.Path + "\graphics\\pieces\\rookBlack.gif")
-        bishop= PhotoImage(file=self.Path + "\graphics\\pieces\\bishop.gif")
-        bishopBlack= PhotoImage(file=self.Path + "\graphics\\pieces\\bishopBlack.gif")
-        king= PhotoImage(file=self.Path + "\graphics\\pieces\\king.gif")
-        kingBlack= PhotoImage(file=self.Path + "\graphics\\pieces\\kingBlack.gif")
-        queen= PhotoImage(file=self.Path + "\graphics\\pieces\\queen.gif")
-        queenBlack= PhotoImage(file=self.Path + "\graphics\\pieces\\queenBlack.gif")
-        knight= PhotoImage(file=self.Path + "\graphics\\pieces\\knight.gif")
-        knightBlack= PhotoImage(file=self.Path + "\graphics\\pieces\\knightBlack.gif")
+        tileImage = PhotoImage(file=self.Path+"\graphics\\tiles\chessboard.png")
+        pawnImage = Image.open(self.Path + "\\graphics\pieces\pawn.gif")
+        pawnBlackImage = Image.open(self.Path + "\graphics\pieces\pawnBlack.gif")
+        rook = Image.open(self.Path + "\graphics\\pieces\\rook.gif")
+        rookBlack = Image.open(self.Path + "\graphics\\pieces\\rookBlack.gif")
+        bishop = Image.open(self.Path + "\graphics\\pieces\\bishop.gif")
+        bishopBlack = Image.open(self.Path + "\graphics\\pieces\\bishopBlack.gif")
+        king = Image.open(self.Path + "\graphics\\pieces\\king.gif")
+        kingBlack = Image.open(self.Path + "\graphics\\pieces\\kingBlack.gif")
+        queen = Image.open(self.Path + "\graphics\\pieces\\queen.gif")
+        queenBlack = Image.open(self.Path + "\graphics\\pieces\\queenBlack.gif")
+        knight = Image.open(self.Path + "\graphics\\pieces\\knight.gif")
+        knightBlack = Image.open(self.Path + "\graphics\\pieces\\knightBlack.gif")
 
         self.Images.update({"tile":tileImage})
         self.Images.update({"pawn":pawnImage})

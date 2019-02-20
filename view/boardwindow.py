@@ -1,5 +1,6 @@
 from tkinter import *
 from view.boardimages import *
+from math import pi
 import pieces
 import physics
 import pymunk.body
@@ -21,16 +22,16 @@ class BoardWindow(Frame):
         """this method wipes canvas in the frame and draws it anew"""
         self.piecesCanvas.delete("all")
         self.piecesCanvas.create_image(256,256, image=self.piecesImages["tile"])
-
         for i in range(8):
             for j in range(8):
-                tilePiece= chessBoard.getPiece(i,j)
+                tilePiece = chessBoard.getPiece(i, j)
 
-                if(tilePiece is not None):
-                    if(tilePiece.faction== pieces.factionColor.FACTION_WHITE):
-                        self.piecesCanvas.create_image(self.__translateBoardCoords(i,j, chessBoard.whoMoved), image=self.piecesImages[tilePiece.name])
-                    elif(tilePiece.faction== pieces.factionColor.FACTION_BLACK):
-                        self.piecesCanvas.create_image(self.__translateBoardCoords(i,j, chessBoard.whoMoved),image=self.piecesImages[tilePiece.name + "Black"])
+                if tilePiece is not None:
+                    if tilePiece.faction == pieces.factionColor.FACTION_WHITE:
+                        tilePiece.pieceImage = ImageTk.PhotoImage(image=self.piecesImages[tilePiece.name].rotate(int(physics.PhysicsSingleton.figures[i][j].angle*180/pi)))
+                    else:
+                        tilePiece.pieceImage = ImageTk.PhotoImage(image=self.piecesImages[tilePiece.name + "Black"].rotate(int(physics.PhysicsSingleton.figures[i][j].angle*180/pi)))
+                    self.piecesCanvas.create_image(self.__translateBoardCoords(i, j, chessBoard.whoMoved), image=tilePiece.pieceImage)
 
 
 
