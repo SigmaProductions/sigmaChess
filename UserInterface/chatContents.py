@@ -1,5 +1,4 @@
 from tkinter import StringVar
-from view.chatwindow import *
 
 
 class Chat:

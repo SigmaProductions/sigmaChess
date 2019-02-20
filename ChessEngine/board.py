@@ -1,17 +1,18 @@
-from pieces import *
+from ChessEngine.pieces import *
 import os.path
-import winsound
-import physics
+from ChessEngine.boardObserver import Observer
+from PhysicsEngine import physics
 
 class chessBoard:
-
 
     def __init__(self):
         self.boardArray = [[]]
         self.boardArray = self.__spawnPieces()
+
+        #observer for callbacking when moved for physics
+        self.observer= Observer()
+
         self.whoMoved = factionColor.FACTION_BLACK
-        Path = os.path.dirname(os.path.abspath(__file__))
-        #winsound.PlaySound(Path + "\\music.wav", winsound.SND_ASYNC)
 
     def __createEmptyArray(self):
         hArray = []
@@ -84,7 +85,6 @@ class chessBoard:
         #cant do neither
         return False
 
-
     def __move(self,pieceToMove, xNew, yNew):
         xCurrent = pieceToMove.x
         yCurrent = pieceToMove.y
@@ -98,13 +98,12 @@ class chessBoard:
         self.boardArray[xNew][yNew] = pieceToMove
         self.whoMoved = pieceToMove.faction
         self.boardArray[xCurrent][yCurrent] = None
-        
+
+        self.observer.RaisePropertyChanged()
         #this should be observable but w/e
-        physics.PhysicsSingleton.BoardChanged()
+        
         if (type(self.boardArray[xNew][yNew]) == piecePawn):
             self.pawnPromotion(xNew, yNew)
-
-
 
     def pawnPromotion(self, xNew, yNew):
         if yNew == 7:
