@@ -11,7 +11,7 @@ class BoardWindow(Frame):
         #load pieces images from graphics/pieces/ folder
         self.piecesImages = BoardGraphicsDict()
         self.piecesImages.loadImages()
-
+        self.config(bd=3,relief=GROOVE)
         #create boardCanvas on which tiles and pieces will be drawn
         self.piecesCanvas = Canvas(self, width=64 * 8,
                               height=64 * 8)
@@ -20,11 +20,7 @@ class BoardWindow(Frame):
     def drawBoard(self, chessBoard):
         """this method wipes canvas in the frame and draws it anew"""
         self.piecesCanvas.delete("all")
-
-        for i in range(8):
-            for j in range(8):
-                self.piecesCanvas.create_image(self.__translateBoardCoords(i, j, None), image=self.piecesImages["tile"])
-                
+        self.piecesCanvas.create_image(256,256, image=self.piecesImages["tile"])
 
         for i in range(8):
             for j in range(8):
