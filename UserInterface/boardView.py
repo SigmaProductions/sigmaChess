@@ -4,6 +4,8 @@ from UserInterface.Resources.boardImagesDict import BoardGraphicsDict
 from ChessEngine import pieces
 from PhysicsEngine import physics
 from math import pi
+from PIL import Image
+from math import sqrt
 
 import pymunk.body
 
@@ -29,16 +31,20 @@ class BoardView(Frame):
                 tilePiece = chessBoard.getPiece(i, j)
 
                 if tilePiece is not None:
+                    #piece rotation with transparent background
                     if tilePiece.faction == pieces.factionColor.FACTION_WHITE:
-                        tilePiece.pieceImage = ImageTk.PhotoImage(image=self.piecesImages[tilePiece.name].rotate(int(physicsClient.figures[i][j].angle*180/pi)))
+                        rot = self.piecesImages[tilePiece.name].rotate(int(physicsClient.figures[i][j].angle*180/pi), expand=1)
                     else:
-                        tilePiece.pieceImage = ImageTk.PhotoImage(image=self.piecesImages[tilePiece.name + "Black"].rotate(int(physicsClient.figures[i][j].angle*180/pi)))
-                    self.piecesCanvas.create_image(self.__translateBoardCoords(physicsClient,i, j, chessBoard.whoMoved), image=tilePiece.pieceImage)
-
+                        rot = self.piecesImages[tilePiece.name + "Black"].rotate(int(physicsClient.figures[i][j].angle*180/pi), expand=1)
+                    fff = Image.new('RGBA', rot.size, (255,255,255,0))
+                    out = Image.composite(rot, fff, rot)
+                    out.convert('RGBA')
+                    tilePiece.pieceImage = ImageTk.PhotoImage(image=out)
+                    coords = list(self.__translateBoardCoords(physicsClient,i, j, chessBoard.whoMoved))
+                    self.piecesCanvas.create_image(coords, image=tilePiece.pieceImage)
 
     def addBinding(self, eventName, function):
         self.piecesCanvas.bind(eventName, function)
-
 
     def __translateBoardCoords(self, physicsClient,boardPositionX, boardPositionY, whoMoved):
         """translates integer position on the chess board to pixel position in canvas"""
@@ -47,13 +53,13 @@ class BoardView(Frame):
             x=boardPositionX
             y=boardPositionY
         else:
-            x=figure.position[0]
-            y=figure.position[1]
+            x=figure.position[0]/64
+            y=figure.position[1]/64
         if whoMoved == pieces.factionColor.FACTION_WHITE:
             x = 7 - x
             y = 7 - y 
-        return (x*64 + 32,(64*8)- (
-            y*64)-32)
+        return (x*64 + 32
+                , 512 - (y*64)-32)
 
 
 
