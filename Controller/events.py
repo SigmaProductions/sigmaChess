@@ -3,11 +3,12 @@ from ChessEngine import pieces
 class EventHandler:
 #This separate class handles all interactions within game
 
-    def __init__(self,hboardClient, hviewClient, hnetworkClient):
+    def __init__(self,hboardClient, hviewClient, hnetworkClient, physicsClient):
         self.boardClient= hboardClient
         self.viewClient= hviewClient
         self.networkClient= hnetworkClient
-
+        self.physicsClient=physicsClient
+        
         #piece we are currently moving (piece that was clicked on and is waiting for position to move)
         self.pieceSuspended=None
 
@@ -48,7 +49,7 @@ class EventHandler:
         if(self.pieceSuspended!=None):
             if(self.__movePiece(self.pieceSuspended, chessCoords)):
                 self.pieceSuspended = None
-                self.viewClient.viewBoardClient.drawBoard(self.boardClient,self.chessBoard)
+                self.viewClient.viewBoardClient.drawBoard(self.physicsClient,self.boardClient)
                 return
 
         self.pieceSuspended = self.boardClient.getPiece(chessCoords[0], chessCoords[1])

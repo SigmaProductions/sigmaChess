@@ -25,7 +25,7 @@ class SigmaChessApp:
         self.multiplayerClient = ConnectionHandler()
 
         #event handler handles event performed on windows
-        self.eventsClient = EventHandler(self.boardClient, self.viewClient,self.multiplayerClient)
+        self.eventsClient = EventHandler(self.boardClient, self.viewClient,self.multiplayerClient,self.physicsClient)
 
         self.mainLoop()
 
