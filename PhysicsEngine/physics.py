@@ -1,17 +1,19 @@
 from pymunk import *
 import pymunk
 import pymunk.pygame_util
-
+from PhysicsEngine import pieceBody
+from math import *
 
 class Physics:
     def __init__(self, board):
         self.board = board
         self.space=Space()
-        self.space.gravity= 0.0,-300000.0
+        self.space.gravity= 0.0,0.0
         self.space.sleep_time_threshold = 0.3
+        self.space.damping = 0.001
+        self.pieceBodies = [pieceBody.PieceBody() for i in range(32)]
         self.constructEnvironment()
-        self.figures= [[None for s in range(8)] for p in range(8)]
-        self.assignBodies()
+        self.initFigures()
 
     def constructEnvironment(self):
         spaceSize = 512
@@ -24,38 +26,54 @@ class Physics:
             wall.friction = 0
             self.space.add(wall)
         pieceSize = 64
-        for _ in range(64):
-            pieceBody = pymunk.Body(0,0)
-            pieceBox = pymunk.Poly.create_box(pieceBody,(pieceSize,pieceSize),1.0)
-            pieceBox.mass = 1000
-            pieceBox.friction = 0.4
-            self.space.add(pieceBody,pieceBox)
-
-    def assignBodies(self):
         i = 0
         for x in range(8):
             for y in range(8):
-                body = self.space.bodies[i]
-                self.figures[x][y]=body
-                i += 1
+                if self.board.getPiece(x, y) is not None:
+                    body = pymunk.Body(0, 0)
+                    pieceBox = pymunk.Poly.create_box(body, (pieceSize, pieceSize), 1.0)
+                    pieceBox.mass = 1000
+                    pieceBox.friction = 0.4
+                    self.space.add(body, pieceBox)
+                    self.pieceBodies[i] = pieceBody.PieceBody(self.board.getPiece(x, y), body)
+                    i += 1
 
-    def initFigures(self):
-        i = 0
-        self.assignBodies()
+    def pullFigures(self):
         for x in range(8):
             for y in range(8):
                 field = self.board.getPiece(x, y)
-                body = self.figures[x][y]
                 if field is not None:
-                    body.position = x*64, y*64
-                else:
-                    body.position = 10000, 10000
-                body.velocity = (0, 0)
-                self.space.reindex_shapes_for_body(body)
-                i += 1
+                    for fig in self.pieceBodies:
+                        if fig.piece == field:
+                            vec1 = pymunk.Vec2d(fig.body.position)
+                            vec2 = pymunk.Vec2d(field.x*64, field.y*64)
+                            fig.body.force = (30000000/(0.1+pow(vec2.get_distance(vec1),2/3)))*(vec2-vec1)
+
+    def initFigures(self):
+        for x in range(8):
+            for y in range(8):
+                field = self.board.getPiece(x, y)
+                if field is not None:
+                    for fig in self.pieceBodies:
+                        if fig.piece == field:
+                            fig.body.position = (x*64, y*64)
+                            self.space.reindex_shapes_for_body(fig.body)
+
+    def forceImpulse(self):
+        for x in range(8):
+            for y in range(8):
+                field = self.board.getPiece(x, y)
+                if field is not None:
+                    for fig in self.pieceBodies:
+                        if fig.piece == field:
+                            vec1 = pymunk.Vec2d(fig.body.position)
+                            vec2 = pymunk.Vec2d(field.x*64, field.y*64)
+                            fig.body.force += (100000000*(vec2-vec1))
 
     def Step(self):
         self.space.step(0.0005)
+        self.pullFigures()
 
     def MoveCallback(self):
-        self.initFigures()
+        self.forceImpulse()
+
