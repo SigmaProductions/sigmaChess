@@ -11,10 +11,8 @@ class SigmaChessApp:
         #winsound.PlaySound(Path + "\\music.wav", winsound.SND_ASYNC)
         #board client handles logic of chess board moves and attacks
         self.boardClient = chessBoard()
-
         #initialize physics engine
         self.physicsClient= Physics(self.boardClient)
-        self.physicsClient.initFigures()
         self.boardClient.observer.Bind(self.physicsClient.MoveCallback)
 
         #view client handles drawing everything

@@ -100,7 +100,6 @@ class chessBoard:
         self.boardArray[xCurrent][yCurrent] = None
 
         self.observer.RaisePropertyChanged()
-        #this should be observable but w/e
         
         if (type(self.boardArray[xNew][yNew]) == piecePawn):
             self.pawnPromotion(xNew, yNew)

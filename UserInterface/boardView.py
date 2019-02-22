@@ -29,13 +29,16 @@ class BoardView(Frame):
         for i in range(8):
             for j in range(8):
                 tilePiece = chessBoard.getPiece(i, j)
-
+                body = pymunk.Body()
                 if tilePiece is not None:
+                    for fig in physicsClient.pieceBodies:
+                        if fig.piece == tilePiece:
+                            body = fig.body
                     #piece rotation with transparent background
                     if tilePiece.faction == pieces.factionColor.FACTION_WHITE:
-                        rot = self.piecesImages[tilePiece.name].rotate(int(physicsClient.figures[i][j].angle*180/pi), expand=1)
+                        rot = self.piecesImages[tilePiece.name].rotate(int(body.angle*180/pi), expand=1)
                     else:
-                        rot = self.piecesImages[tilePiece.name + "Black"].rotate(int(physicsClient.figures[i][j].angle*180/pi), expand=1)
+                        rot = self.piecesImages[tilePiece.name + "Black"].rotate(int(body.angle*180/pi), expand=1)
                     fff = Image.new('RGBA', rot.size, (255,255,255,0))
                     out = Image.composite(rot, fff, rot)
                     out.convert('RGBA')
@@ -48,7 +51,10 @@ class BoardView(Frame):
 
     def __translateBoardCoords(self, physicsClient,boardPositionX, boardPositionY, whoMoved):
         """translates integer position on the chess board to pixel position in canvas"""
-        figure=physicsClient.figures[boardPositionX][boardPositionY]
+        figure = pymunk.Body()
+        for fig in physicsClient.pieceBodies:
+            if fig.piece == physicsClient.board.getPiece(boardPositionX,boardPositionY):
+                figure = fig.body
         if(whoMoved is None):
             x=boardPositionX
             y=boardPositionY
