@@ -33,7 +33,7 @@ class Physics:
                     body = pymunk.Body(0, 0)
                     pieceBox = pymunk.Poly.create_box(body, (pieceSize, pieceSize), 1.0)
                     pieceBox.mass = 1000
-                    pieceBox.friction = 0.4
+                    pieceBox.friction = 0
                     self.space.add(body, pieceBox)
                     self.pieceBodies[i] = pieceBody.PieceBody(self.board.getPiece(x, y), body)
                     i += 1
@@ -45,9 +45,11 @@ class Physics:
                 if field is not None:
                     for fig in self.pieceBodies:
                         if fig.piece == field:
+                            fig.timeIdle += 0.01
                             vec1 = pymunk.Vec2d(fig.body.position)
                             vec2 = pymunk.Vec2d(field.x*64, field.y*64)
-                            fig.body.force = (30000000/(0.1+pow(vec2.get_distance(vec1),2/3)))*(vec2-vec1)
+                            #equation responsible for pulling pieces to destination
+                            fig.body.force = log(fig.timeIdle+1,e) * (15000000/(0.1+pow(vec2.get_distance(vec1),2/3)))*(vec2-vec1)
 
     def initFigures(self):
         for x in range(8):
@@ -56,6 +58,7 @@ class Physics:
                 if field is not None:
                     for fig in self.pieceBodies:
                         if fig.piece == field:
+                            #assign correct starting positions to bodies
                             fig.body.position = (x*64, y*64)
                             self.space.reindex_shapes_for_body(fig.body)
 
@@ -66,8 +69,10 @@ class Physics:
                 if field is not None:
                     for fig in self.pieceBodies:
                         if fig.piece == field:
+                            fig.timeIdle = 0
                             vec1 = pymunk.Vec2d(fig.body.position)
                             vec2 = pymunk.Vec2d(field.x*64, field.y*64)
+                            #amount of impulse force on move
                             fig.body.force += (100000000*(vec2-vec1))
 
     def Step(self):
