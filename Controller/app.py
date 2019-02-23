@@ -24,6 +24,7 @@ class SigmaChessApp:
 
         #event handler handles event performed on windows
         self.eventsClient = EventHandler(self.boardClient, self.viewClient,self.multiplayerClient,self.physicsClient)
+        self.viewClient.viewBoardClient.observer.Bind(self.eventsClient.highlightCallback)
 
         self.mainLoop()
 

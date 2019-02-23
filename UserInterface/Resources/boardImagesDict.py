@@ -28,6 +28,7 @@ class BoardGraphicsDict:
         queenBlack = Image.open(self.Path + "\graphics\\pieces\\queenBlack.gif").convert('RGBA')
         knight = Image.open(self.Path + "\graphics\\pieces\\knight.gif").convert('RGBA')
         knightBlack = Image.open(self.Path + "\graphics\\pieces\\knightBlack.gif").convert('RGBA')
+        highlight = Image.open(self.Path + "\graphics\\tiles\\highlight.gif").convert('RGBA')
         self.Images.update({"tile":tileImage})
         self.Images.update({"pawn":pawnImage})
         self.Images.update({"pawnBlack": pawnBlackImage})
@@ -41,6 +42,7 @@ class BoardGraphicsDict:
         self.Images.update({"queenBlack":queenBlack})
         self.Images.update({"knight":knight})
         self.Images.update({"knightBlack":knightBlack})
+        self.Images.update({"highlight":highlight})
 
     def __getitem__(self, pieceName):
         return self.Images[pieceName]

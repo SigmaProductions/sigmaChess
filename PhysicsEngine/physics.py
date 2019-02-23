@@ -1,6 +1,5 @@
 from pymunk import *
 import pymunk
-import pymunk.pygame_util
 from PhysicsEngine import pieceBody
 from math import *
 
