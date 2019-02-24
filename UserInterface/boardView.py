@@ -8,6 +8,7 @@ from ChessEngine.boardObserver import Observer
 
 import pymunk.body
 
+
 class BoardView(Frame):
 
     def __init__(self,master):
@@ -54,30 +55,36 @@ class BoardView(Frame):
                     out = Image.composite(rot, fff, rot)
                     out.convert('RGBA')
                     tilePiece.pieceImage = ImageTk.PhotoImage(image=out)
-                    coords = list(self.__translateBoardCoords(physicsClient,i, j, chessBoard.whoMoved))
+                    coords = list(self.__translateBoardCoords(i, j, chessBoard.whoMoved, physicsClient))
                     self.piecesCanvas.create_image(coords, image=tilePiece.pieceImage)
+                    if self.observer.callbacks.__len__() > 0:
+                        self.drawMoves(chessBoard, self.observer.callbacks[0]())
 
     def addBinding(self, eventName, function):
         self.piecesCanvas.bind(eventName, function)
 
-    def __translateBoardCoords(self, physicsClient,boardPositionX, boardPositionY, whoMoved):
+    def drawMoves(self,chessBoard,piece):
+        if piece is None or chessBoard is None:
+            return
+        for x in range(8):
+            for y in range(8):
+                if piece.checkMove(chessBoard.boardArray,x,y) or piece.checkAttack(chessBoard.boardArray,x,y):
+                    self.piecesCanvas.create_image(self.__translateBoardCoords(x,y,chessBoard.whoMoved), image=self.piecesImages.highlightTk)
+
+    def __translateBoardCoords(self,boardPositionX, boardPositionY, whoMoved, physicsClient=None):
         """translates integer position on the chess board to pixel position in canvas"""
-        figure = pymunk.Body()
-        for fig in physicsClient.pieceBodies:
-            if fig.piece == physicsClient.board.getPiece(boardPositionX,boardPositionY):
-                figure = fig.body
-        if(whoMoved is None):
-            x=boardPositionX
-            y=boardPositionY
-        else:
+        if physicsClient is not None:
+            figure = pymunk.Body()
+            for fig in physicsClient.pieceBodies:
+                if fig.piece == physicsClient.board.getPiece(boardPositionX,boardPositionY):
+                    figure = fig.body
             x=figure.position[0]/64
             y=figure.position[1]/64
+        else:
+            x=boardPositionX
+            y=boardPositionY
         if whoMoved == pieces.factionColor.FACTION_WHITE:
             x = 7 - x
-            y = 7 - y 
+            y = 7 - y
         return (x*64 + 32
                 , 512 - (y*64)-32)
-
-
-
-

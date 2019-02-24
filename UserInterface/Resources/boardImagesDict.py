@@ -11,6 +11,8 @@ class BoardGraphicsDict:
 
     def __init__(self):
         self.Path= os.path.dirname(os.path.abspath(__file__))
+        dummy = Image.open(self.Path + "\graphics\\tiles\\highlight.gif").convert('RGBA')
+        self.highlightTk = ImageTk.PhotoImage(image=dummy)
         return
 
     def loadImages(self):
