@@ -21,6 +21,7 @@ class BoardView(Frame):
                               height=64 * 8)
         self.piecesCanvas.pack()
         self.observer = Observer()
+
     def drawBoard(self, physicsClient,chessBoard):
         """this method wipes canvas in the frame and draws it anew"""
         self.piecesCanvas.delete("all")
@@ -39,8 +40,8 @@ class BoardView(Frame):
                         piece = self.piecesImages[tilePiece.name]
                     else:
                         piece = self.piecesImages[tilePiece.name + "Black"]
-                    '''Observer returns the currently selected piece from EventHandler'''
-                    if self.observer.callbacks.__len__() > 0:#There is no callback on first drawBoard call
+                    '''highlightCallback returns the currently selected piece from EventHandler'''
+                    if self.observer.callbacks.__len__() > 0:
                         if tilePiece == self.observer.callbacks[0]():
                             dummy = piece.copy()
                             dummy.alpha_composite(self.piecesImages["highlight"])
