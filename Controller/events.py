@@ -38,8 +38,8 @@ class EventHandler:
         if not self.boardClient.movePiece(pieceToMove, targetCoords[0], targetCoords[1]):
             return False
 
-
         return True
+
     def boardClicked(self, event):
         """handle click event; move piece"""
 
@@ -53,6 +53,7 @@ class EventHandler:
                 return
 
         self.pieceSuspended = self.boardClient.getPiece(chessCoords[0], chessCoords[1])
+        self.highlightCallback()
 
     def networkConnect(self, address):
         if(self.networkClient.online):
@@ -65,3 +66,5 @@ class EventHandler:
         self.boardClient.movePiece(pieceToMove,movePacket.toCoords[0],movePacket.toCoords[1])
         self.viewClient.viewBoardClient.drawBoard(self.boardClient)
 
+    def highlightCallback(self):
+        return self.pieceSuspended

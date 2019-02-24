@@ -1,6 +1,5 @@
 from pymunk import *
 import pymunk
-import pymunk.pygame_util
 from PhysicsEngine import pieceBody
 from math import *
 
@@ -11,7 +10,7 @@ class Physics:
         self.space.gravity= 0.0,0.0
         self.space.sleep_time_threshold = 0.3
         self.space.damping = 0.001
-        self.pieceBodies = [pieceBody.PieceBody() for i in range(32)]
+        self.pieceBodies = [pieceBody.PieceBody(self.board) for i in range(32)]
         self.constructEnvironment()
         self.initFigures()
 
@@ -35,7 +34,7 @@ class Physics:
                     pieceBox.mass = 1000
                     pieceBox.friction = 0
                     self.space.add(body, pieceBox)
-                    self.pieceBodies[i] = pieceBody.PieceBody(self.board.getPiece(x, y), body)
+                    self.pieceBodies[i] = pieceBody.PieceBody(self.board, self.board.getPiece(x, y), body)
                     i += 1
 
     def pullFigures(self):
@@ -81,4 +80,6 @@ class Physics:
 
     def MoveCallback(self):
         self.forceImpulse()
+        for fig in self.pieceBodies:
+            fig.amIAlive()
 

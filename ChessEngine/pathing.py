@@ -46,6 +46,11 @@ def linearFunction(x,y, boardArray, coordHorizontal, coordVert):
 
     for squarex in range(low + 1, high):
         squarey = squarex * a + b
+        if squarex>7 or squarey>7 or squarex<0 or squarey<0:
+            '''In case of emergency break glass'''
+            '''\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'''
+            return 'wypierdalaj'
+        '''\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\'''
         if boardArray[squarex][squarey] is not None:
             return False
     return True

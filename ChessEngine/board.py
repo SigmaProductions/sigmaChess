@@ -1,7 +1,7 @@
 from ChessEngine.pieces import *
 import os.path
 from ChessEngine.boardObserver import Observer
-from PhysicsEngine import physics
+
 
 class chessBoard:
 
@@ -92,8 +92,6 @@ class chessBoard:
         #change coords inside piece object
         pieceToMove.x=xNew
         pieceToMove.y=yNew
-        
-        
 
         self.boardArray[xNew][yNew] = pieceToMove
         self.whoMoved = pieceToMove.faction
