@@ -1,6 +1,6 @@
 # SigmaChess
 
-Expandable chess application supporting multiplayer and graphical interface.
+Expandable chess **with physics** game supporting multiplayer and graphical interface.
 ![chessBoard](https://i.imgur.com/5QBVEyZ.png)
 
 ## Getting Started
