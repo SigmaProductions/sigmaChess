@@ -45,7 +45,7 @@ class Physics:
                     for fig in self.pieceBodies:
                         if fig.piece == field:
                             fig.timeIdle += 0.01
-                            vec1 = pymunk.Vec2d(fig.body.position)
+                            vec1 = pymunk.Vec2d(fig.body.position.x, fig.body.position.y)
                             vec2 = pymunk.Vec2d(field.x*64, field.y*64)
                             #equation responsible for pulling pieces to destination
                             fig.body.force = log(fig.timeIdle+1,e) * (15000000/(0.1+pow(vec2.get_distance(vec1),2/3)))*(vec2-vec1)

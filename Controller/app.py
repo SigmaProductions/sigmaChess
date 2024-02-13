@@ -4,11 +4,9 @@ from Controller.events import EventHandler
 from Networking.multiplayer import ConnectionHandler
 from tkinter import *
 from PhysicsEngine.physics import Physics
-import winsound
 
 class SigmaChessApp:
     def __init__(self):
-        #winsound.PlaySound(Path + "\\music.wav", winsound.SND_ASYNC)
         #board client handles logic of chess board moves and attacks
         self.boardClient = chessBoard()
         #initialize physics engine

@@ -25,7 +25,7 @@ class chessBoard:
     def __spawnPieces(self):
         Path = os.path.dirname(os.path.abspath(__file__))
         boardArray = self.__createEmptyArray()
-        boardtemplate = open(Path + "\\boardtemplate.txt", "r")
+        boardtemplate = open(Path + "/boardtemplate.txt", "r")
         for y in range(8):
             line = boardtemplate.readline()
             for x in range(8):
